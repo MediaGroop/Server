@@ -1,0 +1,18 @@
+2015-07-21 08:35:43,512 INFO  [default] Log was initialized...
+2015-07-21 08:35:43,518 INFO  [default] Pooler-Port 66534
+2015-07-21 08:35:43,524 INFO  [default] Pooler-Key topsecret
+2015-07-21 08:35:43,527 INFO  [default] Pooler-MaxCons 10
+2015-07-21 08:35:43,532 INFO  [default] Auth-Port 66535
+2015-07-21 08:35:43,535 INFO  [default] Auth-MaxCons 10
+2015-07-21 08:35:43,538 INFO  [default] Configuration loaded...
+2015-07-21 08:35:43,552 INFO  [default] Auth server was started!
+2015-07-21 08:35:43,556 INFO  [default] Pooler server was started!
+2015-07-21 08:36:04,362 INFO  [default] A message with ID: 19 has been arrived!
+2015-07-21 08:36:04,367 INFO  [default] Incoming connection for authenticator!
+2015-07-21 08:36:04,372 INFO  [default] GUID:
+2015-07-21 08:36:04,375 INFO  [default] 873698331702237407
+2015-07-21 08:36:13,803 INFO  [default] A message with ID: 137 has been arrived!
+2015-07-21 08:36:13,807 INFO  [default] Auth request!
+2015-07-21 08:36:13,810 INFO  [default] GUID:
+2015-07-21 08:36:13,813 INFO  [default] 873698331702237407
+2015-07-21 08:36:13,816 INFO  [default] Credentials:

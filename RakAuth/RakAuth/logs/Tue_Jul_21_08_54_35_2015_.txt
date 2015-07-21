@@ -1,0 +1,52 @@
+2015-07-21 08:54:35,803 INFO  [default] Log was initialized...
+2015-07-21 08:54:35,807 INFO  [default] Pooler-Port 66534
+2015-07-21 08:54:35,812 INFO  [default] Pooler-Key topsecret
+2015-07-21 08:54:35,816 INFO  [default] Pooler-MaxCons 10
+2015-07-21 08:54:35,821 INFO  [default] Auth-Port 66535
+2015-07-21 08:54:35,825 INFO  [default] Auth-MaxCons 10
+2015-07-21 08:54:35,829 INFO  [default] Configuration loaded...
+2015-07-21 08:54:35,836 INFO  [default] Auth server was started!
+2015-07-21 08:54:35,841 INFO  [default] Pooler server was started!
+2015-07-21 08:54:46,095 INFO  [default] A message with ID: 19 has been arrived!
+2015-07-21 08:54:46,099 INFO  [default] Incoming connection for authenticator!
+2015-07-21 08:54:46,103 INFO  [default] GUID:
+2015-07-21 08:54:46,106 INFO  [default] 891712731333383202
+2015-07-21 08:55:39,052 INFO  [default] A message with ID: 137 has been arrived!
+2015-07-21 08:55:39,057 INFO  [default] Auth request!
+2015-07-21 08:55:39,060 INFO  [default] GUID:
+2015-07-21 08:55:39,063 INFO  [default] 891712731333383202
+2015-07-21 08:55:39,067 INFO  [default] Credentials:
+2015-07-21 08:55:39,070 INFO  [default] Account: 
+2015-07-21 08:55:39,073 INFO  [default] ꩀᆏ
+2015-07-21 08:55:39,396 INFO  [default] Password: 
+2015-07-21 08:55:39,399 INFO  [default] ꇀᆏ
+2015-07-21 08:55:52,595 INFO  [default] A message with ID: 137 has been arrived!
+2015-07-21 08:55:52,600 INFO  [default] Auth request!
+2015-07-21 08:55:52,604 INFO  [default] GUID:
+2015-07-21 08:55:52,607 INFO  [default] 891712731333383202
+2015-07-21 08:55:52,612 INFO  [default] Credentials:
+2015-07-21 08:55:52,615 INFO  [default] Account: 
+2015-07-21 08:55:52,619 INFO  [default] 媠৐
+2015-07-21 08:55:52,622 INFO  [default] Password: 
+2015-07-21 08:55:52,626 INFO  [default] 鯠৐
+2015-07-21 08:55:56,808 INFO  [default] A message with ID: 137 has been arrived!
+2015-07-21 08:55:56,813 INFO  [default] Auth request!
+2015-07-21 08:55:56,817 INFO  [default] GUID:
+2015-07-21 08:55:56,821 INFO  [default] 891712731333383202
+2015-07-21 08:55:56,825 INFO  [default] Credentials:
+2015-07-21 08:55:56,829 INFO  [default] Account: 
+2015-07-21 08:55:56,833 INFO  [default] 嫠৐
+2015-07-21 08:55:56,837 INFO  [default] Password: 
+2015-07-21 08:55:56,841 INFO  [default] 鮀৐
+2015-07-21 08:55:56,918 INFO  [default] A message with ID: 137 has been arrived!
+2015-07-21 08:55:56,926 INFO  [default] Auth request!
+2015-07-21 08:55:56,931 INFO  [default] GUID:
+2015-07-21 08:55:56,935 INFO  [default] 891712731333383202
+2015-07-21 08:55:56,938 INFO  [default] Credentials:
+2015-07-21 08:55:56,943 INFO  [default] Account: 
+2015-07-21 08:55:56,948 INFO  [default] 媠৐
+2015-07-21 08:55:56,953 INFO  [default] Password: 
+2015-07-21 08:55:56,956 INFO  [default] 鯠৐
+2015-07-21 08:56:21,959 INFO  [default] A message with ID: 22 has been arrived!
+2015-07-21 08:56:21,966 INFO  [default] Removing client
+2015-07-21 08:56:21,973 INFO  [default] Client was removed!

@@ -1,0 +1,3 @@
+2015-07-11 13:15:01,438 ERROR [default] There's no value with given name!
+2015-07-11 13:15:01,438 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGSEGV] signal
+2015-07-11 13:15:01,448 WARN  [default] Aborting application. Reason: Fatal log at [c:\users\alastar\documents\visual studio 2013\projects\rakauth\rakauth\easylogging++.h:5583]

@@ -1,0 +1,19 @@
+2015-07-18 16:46:28,029 INFO  [default] Log was initialized...
+2015-07-18 16:46:28,052 INFO  [default] Pooler-Port 66534
+2015-07-18 16:46:28,056 INFO  [default] Pooler-Key topsecret
+2015-07-18 16:46:28,059 INFO  [default] Pooler-MaxCons 10
+2015-07-18 16:46:28,063 INFO  [default] Auth-Port 66535
+2015-07-18 16:46:28,122 INFO  [default] Auth-MaxCons 10
+2015-07-18 16:46:28,133 INFO  [default] Configuration loaded...
+2015-07-18 16:46:28,150 INFO  [default] Auth server was started!
+2015-07-18 16:46:28,161 INFO  [default] Pooler server was started!
+2015-07-18 16:47:32,873 INFO  [default] A message with ID: 19 has been arrived!
+2015-07-18 16:47:32,877 INFO  [default] Incoming connection for authenticator!
+2015-07-18 16:47:32,881 INFO  [default] GUID:
+2015-07-18 16:47:32,884 INFO  [default] 1044835126482837298
+2015-07-18 16:48:42,944 INFO  [default] A message with ID: 22 has been arrived!
+2015-07-18 16:48:42,955 INFO  [default] Removing client
+2015-07-18 16:48:42,963 INFO  [default] GUID:
+2015-07-18 16:48:42,969 INFO  [default] 1044835126482837298
+2015-07-18 16:48:42,976 INFO  [default] There's no client with given guid!
+2015-07-18 16:48:42,985 INFO  [default] Client was removed!

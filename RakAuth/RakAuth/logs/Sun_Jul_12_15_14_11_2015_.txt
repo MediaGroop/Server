@@ -1,0 +1,19 @@
+2015-07-12 15:14:11,729 INFO  [default] Log was initialized...
+2015-07-12 15:14:11,739 INFO  [default] Network-PoolerPort 66534
+2015-07-12 15:14:11,739 INFO  [default] Network-PoolerKey topsecret
+2015-07-12 15:14:11,749 INFO  [default] Network-MaxCons 1000
+2015-07-12 15:14:11,759 INFO  [default] Configuration loaded...
+2015-07-12 15:14:11,759 INFO  [default] Starting server thread...
+2015-07-12 15:14:11,759 INFO  [default] iterating through map, size
+2015-07-12 15:14:11,769 INFO  [default] Network-PoolerPort Network-MaxCons
+2015-07-12 15:14:11,769 INFO  [default] Network-PoolerPort Network-PoolerKey
+2015-07-12 15:14:11,779 INFO  [default] Network-PoolerPort Network-PoolerPort
+2015-07-12 15:14:11,779 INFO  [default] iterating through map, size
+2015-07-12 15:14:11,789 INFO  [default] Network-MaxCons Network-MaxCons
+2015-07-12 15:14:11,789 INFO  [default] ð­ºð­ºð­ºð­ºð­ºð­ºð­ºThread started...
+2015-07-12 15:14:11,789 INFO  [default] ð­ºð­ºð­ºð­ºð­ºð­ºð­ºThread started...
+2015-07-12 15:14:11,799 INFO  [default] Pointer assigned
+2015-07-12 15:14:11,879 INFO  [default] Building socket descriptor...
+2015-07-12 15:14:11,879 INFO  [default] Starting the peer...
+2015-07-12 15:14:11,939 INFO  [default] Starting the authorization server...
+2015-07-12 15:14:11,939 INFO  [default] Server has been started! Listening for connections...

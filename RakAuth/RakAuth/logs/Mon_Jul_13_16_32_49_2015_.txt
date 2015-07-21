@@ -1,0 +1,11 @@
+2015-07-13 16:32:49,607 INFO  [default] Log was initialized...
+2015-07-13 16:32:49,607 INFO  [default] Network-PoolerPort 66534
+2015-07-13 16:32:49,617 INFO  [default] Network-PoolerKey topsecret
+2015-07-13 16:32:49,627 INFO  [default] Network-MaxCons 10
+2015-07-13 16:32:49,627 INFO  [default] Auth-AuthPort 66535
+2015-07-13 16:32:49,627 INFO  [default] Auth-MaxCons 10
+2015-07-13 16:32:49,637 INFO  [default] Configuration loaded...
+2015-07-13 16:32:49,637 INFO  [default] Pointer assigned
+2015-07-13 16:32:49,647 INFO  [default] Auth server was started!
+2015-07-13 16:32:49,647 INFO  [default] Pointer assigned
+2015-07-13 16:32:49,647 INFO  [default] Pooler server was started!

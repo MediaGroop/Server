@@ -1,0 +1,11 @@
+2015-07-12 14:54:27,762 INFO  [default] Log was initialized...
+2015-07-12 14:54:27,772 INFO  [default] Configuration loaded...
+2015-07-12 14:54:27,772 INFO  [default] Server instance was requested
+2015-07-12 14:54:27,782 INFO  [default] Starting server thread...
+2015-07-12 14:54:27,792 INFO  [default] ð­ºð­ºð­ºð­ºRequesting server instance...
+2015-07-12 14:54:27,792 INFO  [default] ð­ºð­ºð­ºð­ºRequesting server instance...
+2015-07-12 14:54:27,802 INFO  [default] Server instance was requested
+2015-07-12 14:54:27,802 INFO  [default] Pointer assigned
+2015-07-12 14:54:27,882 INFO  [default] Server instance was requested
+2015-07-12 14:54:27,882 INFO  [default] Building socket descriptor...
+2015-07-12 14:54:27,882 ERROR [default] There's no value with given name!
