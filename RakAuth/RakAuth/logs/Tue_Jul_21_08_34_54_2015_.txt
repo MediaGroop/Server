@@ -1,9 +1,0 @@
-2015-07-21 08:34:54,555 INFO  [default] Log was initialized...
-2015-07-21 08:34:54,567 INFO  [default] Pooler-Port 66534
-2015-07-21 08:34:54,582 INFO  [default] Pooler-Key topsecret
-2015-07-21 08:34:54,593 INFO  [default] Pooler-MaxCons 10
-2015-07-21 08:34:54,601 INFO  [default] Auth-Port 66535
-2015-07-21 08:34:54,609 INFO  [default] Auth-MaxCons 10
-2015-07-21 08:34:54,616 INFO  [default] Configuration loaded...
-2015-07-21 08:34:54,627 INFO  [default] Auth server was started!
-2015-07-21 08:34:54,636 INFO  [default] Pooler server was started!
