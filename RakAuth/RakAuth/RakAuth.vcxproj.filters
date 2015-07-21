@@ -895,7 +895,7 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="libpq.lib" />
-    <Library Include="..\..\..\..\..\..\..\Program Files\PostgreSQL\9.4\lib\libeay32MD.lib" />
-    <Library Include="..\..\..\..\..\..\..\Program Files\PostgreSQL\9.4\lib\ssleay32MD.lib" />
+    <Library Include="ssleay32.lib" />
+    <Library Include="libeay32.lib" />
   </ItemGroup>
 </Project>

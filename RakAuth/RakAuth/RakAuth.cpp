@@ -285,24 +285,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	authServer = &authSrv;
 	std::thread trd1(authServer->startNetworkTrd, authServer, ConfigLoader::getIntVal("Auth-Port"), ConfigLoader::getIntVal("Auth-MaxCons"));
 	authServer->networkTrd = &trd1;
-	/*if (!loadKeys()){
-		FILE *fp;
-		cat::EasyHandshake::Initialize();
-		cat::EasyHandshake handshake;
-		char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
-		char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
-		handshake.GenerateServerKey(public_key, private_key);
-		
-		fp = fopen("private", "wb");
-		fwrite(private_key, sizeof(private_key), 1, fp);
-		fclose(fp);
-
-		fp = fopen("public", "wb");
-		fwrite(public_key, sizeof(public_key), 1, fp);
-		fclose(fp);
-
-		loadKeys();
-	}*/
 	//Auth server end
 	
 	LOG(INFO) << "Auth server was started!";

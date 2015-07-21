@@ -25,30 +25,33 @@ void Server::addClient(RakNet::RakNetGUID guid, ConnectedClient cl)
 	this->_connections.insert(pair<RakNet::RakNetGUID, ConnectedClient>(guid, cl));
 }
 
-void Server::startNetworkTrd(Server* serv, int port, int maxPlayers){
-	serv->instance = RakNet::OP_NEW<RakNet::TCPInterface>(__FILE__, __LINE__);
-	serv->instance->Start(port, maxPlayers);
+void Server::startNetworkTrd(Server* instance, int port, int maxPlayers)
+{
+	/*instance->sslServer = RakNet::OP_NEW<RakNet::TCPInterface>(__FILE__, __LINE__);
+	instance->sslServer->Start(port, maxPlayers);
+
 	RakNet::Packet *packet;
 
-	LOG(INFO) << "Server has been started! Listening for conections...";
-	serv->running = true;
-	while (serv->running)
+	instance->running = true;
+	while (instance->running)
 	{
 		Sleep(1);
-		for (packet = serv->instance->Receive(); packet; serv->instance->DeallocatePacket(packet), packet = serv->instance->Receive())
+		for (packet = instance->sslServer->Receive(); packet; instance->sslServer->DeallocatePacket(packet), packet = instance->sslServer->Receive())
 		{
-			serv->listener->handle(packet);
+			instance->listener->handle(packet);
 		}
 	}
 
-/*	instance->peer = RakNet::RakPeerInterface::GetInstance();
+	RakNet::TCPInterface::DestroyInstance(instance->sslServer);
+	*/
+	instance->peer = RakNet::RakPeerInterface::GetInstance();
 	RakNet::Packet *packet;
 
 	RakNet::SocketDescriptor sd(port, 0);
 	instance->peer->Startup(maxPlayers, &sd, 1);
 	//LOG(INFO) << "Starting the server...";
 	instance->peer->SetMaximumIncomingConnections(maxPlayers);
-	//LOG(INFO) << "Server has been started! Listening for conections...";
+	LOG(INFO) << "Server has been started! Listening for conections...";
 	instance->running = true;
 	while (instance->running)
 	{
@@ -61,7 +64,6 @@ void Server::startNetworkTrd(Server* serv, int port, int maxPlayers){
 
 
 	RakNet::RakPeerInterface::DestroyInstance(instance->peer);
-	*/
 }
 
 void Server::removeClient(RakNet::RakNetGUID guid)

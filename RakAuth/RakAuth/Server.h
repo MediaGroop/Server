@@ -19,8 +19,10 @@ public:
 	static void startNetworkTrd(Server*, int, int);
 
 	~Server(){};
-	RakNet::TCPInterface* instance;
-	//RakNet::RakPeerInterface *peer;
+	
+	//RakNet::TCPInterface* sslServer;
+	
+	RakNet::RakPeerInterface *peer;
 	NetworkListener* listener;
 
 	std::thread *networkTrd;

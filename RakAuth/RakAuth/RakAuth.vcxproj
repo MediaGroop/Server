@@ -54,7 +54,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Alastar\Desktop\libssh-0.7.1\include\;C:\Users\Alastar\Documents\RakNet-master\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alastar\Documents\RakNet-master\DependentExtensions\openssl-1.0.0d\include;C:\Users\Alastar\Documents\RakNet-master\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <CompileAs>Default</CompileAs>
@@ -68,7 +68,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;libeay32MD.lib;ssleay32MD.lib;secur32.lib;libpq.lib;odb-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;libeay32.lib;ssleay32.lib;secur32.lib;libpq.lib;odb-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
@@ -397,9 +397,9 @@
     <None Include="ssleay32.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\..\..\Program Files\PostgreSQL\9.4\lib\libeay32MD.lib" />
-    <Library Include="..\..\..\..\..\..\..\Program Files\PostgreSQL\9.4\lib\ssleay32MD.lib" />
+    <Library Include="libeay32.lib" />
     <Library Include="libpq.lib" />
+    <Library Include="ssleay32.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
