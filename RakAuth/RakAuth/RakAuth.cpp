@@ -1,23 +1,26 @@
 #pragma once
 
-#include <stdio.h>
-#include <string.h>
 #include "stdafx.h"
-#include "RakPeerInterface.h"
-#include "BitStream.h"
 #include "easylogging++.h"
 #include <ctime>
-#include "FileManager.h"
-#include "ConfigLoader.h"
-#include <thread>
-#include <map>
-#include "ServerInfo.h"
-#include "ConnectedClient.h"
-#include "Server.h"
-#include "NetworkListener.h"
+#include <tchar.h>
 #include "PacketTypes.h"
+#include "FileManager.h"
+#include "ConnectedClient.h"
 #include "AuthClient.h"
-#include "StringCompressor.h"
+#include "ConfigLoader.h"
+#include "ServVars.h"
+#include "ServersTracker.h"
+
+//Handlers
+//Pooler
+#include "PoolerConnectHandler.h"
+#include "ServerRegisterHandler.h"
+#include "PoolerDisconnectHandler.h"
+//Auth
+#include "AuthConnectHandler.h"
+#include "AuthDisconnectHandler.h"
+#include "AuthRequestHandler.h"
 
 using namespace FileManager;
 
@@ -28,11 +31,11 @@ using namespace FileManager;
 #define ELPP_UNORDERED_SET
 #define ELPP_THREAD_SAFE
 
-static Server* authServer;
-static Server* poolerServer;
-
 INITIALIZE_EASYLOGGINGPP
 
+
+//My first function on C++, he-he...
+//Configures easyLogging
 void setupLog(){
 	time_t t;
 	t = time(0);
@@ -59,176 +62,10 @@ void setupLog(){
 	el::Loggers::reconfigureAllLoggers(el::ConfigurationType::Filename, log_name);
 }
 
-map<std::string, ServerInfo> _servers;
-
-
-ServerInfo* getServer(ConnectedClient* c)
+//Reading keys from files located in same directory as server
+boolean loadKeys()
 {
-	for (map<std::string, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
-	{
-		if ((*ii).second.associatedClient->addr == c->addr){
-			return &(*ii).second;
-		}
-	}
-	return NULL;
-}
-
-ServerInfo* getServer(std::string name){
-	for (map<std::string, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
-	{
-		if ((*ii).first == name) {
-			return &(*ii).second;
-		}
-	}
-	return NULL;
-}
-
-bool hasServer(std::string name)
-{
-	if (getServer(name) == nullptr)
-		return false;
-	return true;
-}
-void addServer(std::string name, ServerInfo cl)
-{
-	_servers.insert(pair<std::string, ServerInfo>(name, cl));
-}
-
-void removeServer(ServerInfo* ptr){
-	for (map<std::string, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
-	{
-		if (&((*ii).second) == ptr) {
-			_servers.erase((*ii).first);
-			return;
-		}
-	}
-	LOG(INFO) << "There's no info bout this server!";
-}
-
-void handleDisconnectFromPooler(RakNet::Packet * p)
-{
-	ServerInfo* ptr = getServer(poolerServer->getClient(p->guid));
-	if (ptr != nullptr)
-	{
-		removeServer(ptr);
-	}
-	poolerServer->removeClient(p->guid);
-	LOG(INFO) << "Server was removed!";
-}
-
-void handleDisconnectFromAuth(RakNet::Packet * p)
-{
-	ConnectedClient* c = authServer->getClient(p->guid);
-	if (c != nullptr)
-	{
-		
-	}
-	LOG(INFO) << "Removing client";
-	//LOG(INFO) << "GUID:";
-	//LOG(INFO) << p->guid.ToString();
-	authServer->removeClient(p->guid);
-	LOG(INFO) << "Client was removed!";
-}
-
-void handleconn(RakNet::Packet *packet){
-	LOG(INFO) << "Incoming connection for pooler!";
-	if (!poolerServer->hasClient(packet->guid)) // Won't it always be true?
-	{
-		ConnectedClient cl(packet->systemAddress);
-		poolerServer->addClient(packet->guid, cl);
-	}
-}
-
-
-void handleAuthconn(RakNet::Packet *packet){
-	LOG(INFO) << "Incoming connection for authenticator!";
-	LOG(INFO) << "GUID:";
-	LOG(INFO) << packet->guid.ToString();
-	if (!authServer->hasClient(packet->guid)) // Won't it always be true?
-	{
-		AuthClient cl(packet->systemAddress);
-		authServer->addClient(packet->guid, cl);
-	}
-}
-
-void loadAccInfo(AuthClient* ac){
-	//PGresult* res = dbWorker->executeQuery();
-
-}
-
-
-void onFinishLoadAcc(AuthClient* ac)
-{
-
-}
-
-void handleAuth(RakNet::Packet *packet){
-	LOG(INFO) << "Auth request!";
-	LOG(INFO) << "GUID:";
-	LOG(INFO) << packet->guid.ToString();
-	ConnectedClient* cl = authServer->getClient(packet->guid);
-
-	if (cl != nullptr) // Won't it always be true?
-	{
-		RakNet::BitStream bsIn(packet->data, packet->length, false);
-		bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
-		RakNet::RakString acc, pas;
-		RakNet::StringCompressor::Instance()->DecodeString(&acc, 256, &bsIn);
-		RakNet::StringCompressor::Instance()->DecodeString(&pas, 256, &bsIn);
-		
-		int serverId;
-		bsIn.Read(serverId);
-		
-		LOG(INFO) << "Credentials:";
-		LOG(INFO) << "Account: ";
-		LOG(INFO) << acc.C_String();
-		LOG(INFO) << "Password: ";
-		LOG(INFO) << pas.C_String();
-		LOG(INFO) << "ServerId:";
-		LOG(INFO) << serverId;
-
-		AuthClient* ac = (AuthClient*)cl;
-		loadAccInfo(ac);
-		onFinishLoadAcc(ac);
-	}
-}
-
-
-void handleWrongKey(RakNet::RakNetGUID guid){
-	LOG(INFO) << "Wrong key!";
-}
-
-void handlePoolerAuth(RakNet::Packet *packet)
-{
-	RakNet::RakString key, shardName;
-	int port, length;
-	RakNet::BitStream bsIn(packet->data, packet->length, false);
-	bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
-	
-	bsIn.Read(key);
-	LOG(INFO) << "Our key is: " + ConfigLoader::getVal("Pooler-Key");
-	LOG(INFO) << "Their key is: ";
-	LOG(INFO) << key.C_String();
-	if (key == ConfigLoader::getVal("Pooler-Key").c_str()){
-		bsIn.Read(shardName);
-		bsIn.Read(port);
-		if (!hasServer(std::string(shardName))){
-			ServerInfo info(packet->systemAddress.ToString(false), port, poolerServer->getClient(packet->guid), ServerState::ONLINE);
-			addServer(shardName.C_String(), info);
-			LOG(INFO) << "Registering " + shardName + " at IP " + packet->systemAddress.ToString(false) + ":" << port;
-		}
-	}
-	else
-	{
-		handleWrongKey(packet->guid);
-	}
-}
-
-/*boolean loadKeys()
-{
-	FILE *fp;
-	char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
-	char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
+	FILE *fp;	
 
 	fp = fopen("private", "rb");
 	if (fp)
@@ -253,14 +90,15 @@ void handlePoolerAuth(RakNet::Packet *packet)
 		LOG(INFO) << "Public key isn't loaded!";
 		return false;
 	}
-	return true;
-}*/
+	LOG(INFO) << "Security keys have loaded!";
 
+	return true;
+}
 
 //Entry point for server
 //Init log
 //Init configuration
-//Init SSH tunnel
+//Load security keys
 //Init auth server(for players)
 //Init pooler server(for registering servers)
 int _tmain(int argc, _TCHAR* argv[])
@@ -268,11 +106,25 @@ int _tmain(int argc, _TCHAR* argv[])
 	char str[23];
 	setupLog();
 	LOG(INFO) << "Log was initialized...";
-	ConfigLoader::init();
+	ConfigLoader::init("config.ini");
 	LOG(INFO) << "Configuration loaded...";
 	
-	//dbWorker = &DatabaseWorker();
-	//dbWorker->init();
+	//Generating and saving public and private keys
+	if (!loadKeys())
+	{
+		cat::EasyHandshake::Initialize();
+		cat::EasyHandshake handshake;
+		handshake.GenerateServerKey(public_key, private_key);
+		FILE *fp;
+		fp = fopen("private", "w");
+		fwrite(private_key, sizeof(private_key), 1, fp);
+		fclose(fp);
+		fp = fopen("public", "w");
+		fwrite(public_key, sizeof(public_key), 1, fp);
+		fclose(fp);
+		LOG(INFO) << "Security keys have generated!";
+	//	loadKeys();
+	}
 
 	//Auth server
 	NetworkListener listen;
@@ -283,6 +135,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	Server authSrv(&listen);
 
 	authServer = &authSrv;
+	authServer->initSecurity(public_key, private_key);//Must be called before starting network thread! (See RakPeerInterface.h for info)
+
 	std::thread trd1(authServer->startNetworkTrd, authServer, ConfigLoader::getIntVal("Auth-Port"), ConfigLoader::getIntVal("Auth-MaxCons"));
 	authServer->networkTrd = &trd1;
 	//Auth server end
@@ -306,7 +160,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	LOG(INFO) << "Pooler server was started!";
 
-	cin >> str;
+	//TODO: start command reader loop
+	cin >> str; // just for blocking
 	
 	LOG(INFO) << "Stopping auth server...";
 	authServer->running = false;

@@ -6,12 +6,15 @@ ConfigLoader& ConfigLoader::getInstance()
 	return l;
 }
 
-void ConfigLoader::createDefault(){
+//Creates default config at given local path
+void ConfigLoader::createDefault(std::string path){
 	static char str[64];
 	getcwd(str, 64);
-	FileManager::createFile(strcat(str, "\\config.ini"));
+	strcat(str, "\\");
+	strcat(str, path.c_str());
+	FileManager::createFile(str);
 
-	minIni ini("config.ini");
+	minIni ini(path);
 
 	ini.put("Pooler", "Port", "66534");
 	ini.put("Pooler", "Key", "topsecret");
@@ -22,6 +25,7 @@ void ConfigLoader::createDefault(){
 
 }
 
+//Returns value from config
 std::string ConfigLoader::getVal(std::string key)
 {
 	//LOG(INFO) << "iterating through map, size";
@@ -38,14 +42,16 @@ std::string ConfigLoader::getVal(std::string key)
 	return NULL;
 }
 
+//Just parsing value to int, use only when you certainly know about var type!
 int ConfigLoader::getIntVal(std::string key)
 {
 	return atoi((getVal(key)).c_str());
 }
 
-void ConfigLoader::init(){
-	if (FileManager::fileExists("config.ini")){
-		minIni ini("config.ini");
+//Loading config from file, which passed as argument
+void ConfigLoader::init(std::string path){
+	if (FileManager::fileExists(path)){
+		minIni ini(path);
 		string s, section;
 		for (int is = 0; section = ini.getsection(is), section.length() > 0; is++) {
 			for (int ik = 0; s = ini.getkey(section, ik), s.length() > 0; ik++) {
@@ -56,7 +62,7 @@ void ConfigLoader::init(){
 	}
 	else
 	{
-		ConfigLoader::createDefault();
-		ConfigLoader::init();
+		ConfigLoader::createDefault(path);
+		ConfigLoader::init(path);
 	}
 }

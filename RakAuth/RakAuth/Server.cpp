@@ -44,14 +44,17 @@ void Server::startNetworkTrd(Server* instance, int port, int maxPlayers)
 
 	RakNet::TCPInterface::DestroyInstance(instance->sslServer);
 	*/
-	instance->peer = RakNet::RakPeerInterface::GetInstance();
 	RakNet::Packet *packet;
 
 	RakNet::SocketDescriptor sd(port, 0);
 	instance->peer->Startup(maxPlayers, &sd, 1);
 	//LOG(INFO) << "Starting the server...";
 	instance->peer->SetMaximumIncomingConnections(maxPlayers);
-	LOG(INFO) << "Server has been started! Listening for conections...";
+	
+	if (instance->secure)
+		LOG(INFO) << "Secure server has been started! Listening for conections...";
+	else
+		LOG(INFO) << "Server has been started! Listening for conections...";
 	instance->running = true;
 	while (instance->running)
 	{
@@ -64,6 +67,19 @@ void Server::startNetworkTrd(Server* instance, int port, int maxPlayers)
 
 
 	RakNet::RakPeerInterface::DestroyInstance(instance->peer);
+}
+
+bool Server::initSecurity(const char* pub, const char* priv)
+{
+	if (this->peer->InitializeSecurity(pub, priv, true))
+	{
+		secure = true;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Server::removeClient(RakNet::RakNetGUID guid)

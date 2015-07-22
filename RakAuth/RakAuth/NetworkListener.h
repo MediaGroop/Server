@@ -1,7 +1,6 @@
 #pragma once
-
-#include <map>
 #include "RakPeerInterface.h"
+#include <map>
 #include <functional>
 
 using namespace std;

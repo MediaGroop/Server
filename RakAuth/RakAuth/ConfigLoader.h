@@ -1,10 +1,6 @@
 #pragma once
-#include <map>
-
-using namespace std;
-
+#include <string>
 #include "minIni.h"
-#include "stdafx.h"
 #include "FileManager.h"
 
 class ConfigLoader{
@@ -12,10 +8,10 @@ private:
 	ConfigLoader(){};
 	~ConfigLoader(){};
 public:
-	 map <string, string> _vals;
+	 map <std::string, std::string> _vals;
 	 static ConfigLoader& getInstance();
-	 static void createDefault();
-	 static void init();
+	 static void createDefault(std::string);
+	 static void init(std::string);
 	 static std::string getVal(std::string);
 	 static int getIntVal(std::string);
 };

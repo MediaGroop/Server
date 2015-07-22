@@ -1,5 +1,6 @@
 #pragma once
 
+#include "stdafx.h"
 #include <io.h>
 #include <string>
 #include "easylogging++.h"

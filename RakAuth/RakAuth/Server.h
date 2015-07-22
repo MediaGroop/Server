@@ -1,12 +1,9 @@
 #pragma once
 #include "stdafx.h"
-#include "RakPeerInterface.h"
-#include <map>
+#include <thread>
 #include "ServerInfo.h"
 #include "ConnectedClient.h"
-#include <thread>
 #include "NetworkListener.h"
-#include "TCPInterface.h"
 
 using namespace std;
 
@@ -15,12 +12,15 @@ class Server
 public:	
 	Server(NetworkListener * lis){
 		this->listener = lis;
+		this->peer = RakNet::RakPeerInterface::GetInstance();
+
 	};
 	static void startNetworkTrd(Server*, int, int);
 
 	~Server(){};
 	
-	//RakNet::TCPInterface* sslServer;
+	//Another ghost function
+	bool initSecurity(const char*, const char*);
 	
 	RakNet::RakPeerInterface *peer;
 	NetworkListener* listener;
@@ -28,6 +28,7 @@ public:
 	std::thread *networkTrd;
 
 	bool running = false;
+	bool secure = false;
 
 	map<RakNet::RakNetGUID, ConnectedClient> _connections;
 
@@ -36,4 +37,3 @@ public:
 	ConnectedClient* getClient(RakNet::RakNetGUID);
 	void removeClient(RakNet::RakNetGUID);
 };
-
