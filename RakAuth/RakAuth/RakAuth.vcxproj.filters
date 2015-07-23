@@ -567,6 +567,9 @@
     <ClInclude Include="..\Deps\Rak-Net-libcat\Source\Base64Encoder.h">
       <Filter>Заголовочные файлы\RakNet</Filter>
     </ClInclude>
+    <ClInclude Include="CommandListener.h">
+      <Filter>Заголовочные файлы\Server</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

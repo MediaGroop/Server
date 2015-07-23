@@ -84,6 +84,16 @@ boolean loadKeys()
 	{
 		fread(public_key, sizeof(public_key), 1, fp);
 		fclose(fp);
+		char str[12];
+		for (int i = 0; i < sizeof(public_key) / sizeof(char); ++i)
+		{
+			itoa(i, str, 10);
+			LOG(INFO) << str;
+			LOG(INFO) << "\/";
+			itoa(public_key[i], str, 10);
+			LOG(INFO) << str;
+			LOG(INFO) << "______";
+		}
 		LOG(INFO) << "Public key is loaded!";
 	}
 	else{
@@ -94,6 +104,37 @@ boolean loadKeys()
 
 	return true;
 }
+
+void handlefail(RakNet::Packet* p)
+{
+	LOG(INFO) << "Client failed to connect!";
+};
+
+
+void handleReq(RakNet::Packet* p)
+{
+	LOG(INFO) << "Client requested to connect!";
+};
+
+void handleReqAcc(RakNet::Packet* p)
+{
+	LOG(INFO) << "Client connect request accepted!";
+};
+
+void handlePubKey(RakNet::Packet* p)
+{
+	LOG(INFO) << "Client require public key!";
+};
+
+void handleWrgKey(RakNet::Packet* p)
+{
+	LOG(INFO) << "Client has wrong key!";
+};
+
+void handleInitSec(RakNet::Packet* p)
+{
+	LOG(INFO) << "We need to init security!";
+};
 
 //Entry point for server
 //Init log
@@ -108,7 +149,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG(INFO) << "Log was initialized...";
 	ConfigLoader::init("config.ini");
 	LOG(INFO) << "Configuration loaded...";
-	
+
 	//Generating and saving public and private keys
 	if (!loadKeys())
 	{
@@ -116,10 +157,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		cat::EasyHandshake handshake;
 		handshake.GenerateServerKey(public_key, private_key);
 		FILE *fp;
-		fp = fopen("private", "w");
+		fp = fopen("private", "wb");
 		fwrite(private_key, sizeof(private_key), 1, fp);
 		fclose(fp);
-		fp = fopen("public", "w");
+		fp = fopen("public", "wb");
 		fwrite(public_key, sizeof(public_key), 1, fp);
 		fclose(fp);
 		LOG(INFO) << "Security keys have generated!";
@@ -131,12 +172,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	listen.add((short)ID_NEW_INCOMING_CONNECTION, handleAuthconn);
 	listen.add((short)ID_CONNECTION_LOST, handleDisconnectFromAuth);
 	listen.add((short)ACCOUNT_AUTH, handleAuth);
+	listen.add((short)ID_CONNECTION_ATTEMPT_FAILED, handlefail);
+	listen.add((short)ID_CONNECTION_REQUEST, handleReq);
+	listen.add((short)ID_CONNECTION_REQUEST_ACCEPTED, handleReqAcc);
+	listen.add((short)ID_REMOTE_SYSTEM_REQUIRES_PUBLIC_KEY, handlePubKey);
+	listen.add((short)ID_PUBLIC_KEY_MISMATCH, handleWrgKey);
+	listen.add((short)ID_OUR_SYSTEM_REQUIRES_SECURITY, handleInitSec);
 
 	Server authSrv(&listen);
 
 	authServer = &authSrv;
 	authServer->initSecurity(public_key, private_key);//Must be called before starting network thread! (See RakPeerInterface.h for info)
-
 	std::thread trd1(authServer->startNetworkTrd, authServer, ConfigLoader::getIntVal("Auth-Port"), ConfigLoader::getIntVal("Auth-MaxCons"));
 	authServer->networkTrd = &trd1;
 	//Auth server end

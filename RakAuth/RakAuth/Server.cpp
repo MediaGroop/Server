@@ -27,28 +27,10 @@ void Server::addClient(RakNet::RakNetGUID guid, ConnectedClient cl)
 
 void Server::startNetworkTrd(Server* instance, int port, int maxPlayers)
 {
-	/*instance->sslServer = RakNet::OP_NEW<RakNet::TCPInterface>(__FILE__, __LINE__);
-	instance->sslServer->Start(port, maxPlayers);
-
-	RakNet::Packet *packet;
-
-	instance->running = true;
-	while (instance->running)
-	{
-		Sleep(1);
-		for (packet = instance->sslServer->Receive(); packet; instance->sslServer->DeallocatePacket(packet), packet = instance->sslServer->Receive())
-		{
-			instance->listener->handle(packet);
-		}
-	}
-
-	RakNet::TCPInterface::DestroyInstance(instance->sslServer);
-	*/
 	RakNet::Packet *packet;
 
 	RakNet::SocketDescriptor sd(port, 0);
 	instance->peer->Startup(maxPlayers, &sd, 1);
-	//LOG(INFO) << "Starting the server...";
 	instance->peer->SetMaximumIncomingConnections(maxPlayers);
 	
 	if (instance->secure)
@@ -65,21 +47,22 @@ void Server::startNetworkTrd(Server* instance, int port, int maxPlayers)
 		}
 	}
 
-
+	instance->peer->Shutdown(5);
 	RakNet::RakPeerInterface::DestroyInstance(instance->peer);
 }
 
 bool Server::initSecurity(const char* pub, const char* priv)
 {
-	if (this->peer->InitializeSecurity(pub, priv, true))
+	if (this->peer->InitializeSecurity(pub, priv, false))
 	{
 		secure = true;
 		return true;
 	}
 	else
 	{
-		return false;
+		secure = false;
 	}
+	return false;
 }
 
 void Server::removeClient(RakNet::RakNetGUID guid)

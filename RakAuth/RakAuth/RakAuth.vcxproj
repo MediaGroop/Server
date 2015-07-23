@@ -257,6 +257,7 @@
     <ClInclude Include="AuthConnectHandler.h" />
     <ClInclude Include="AuthDisconnectHandler.h" />
     <ClInclude Include="AuthRequestHandler.h" />
+    <ClInclude Include="CommandListener.h" />
     <ClInclude Include="ConfigLoader.h" />
     <ClInclude Include="ConnectedClient.h" />
     <ClInclude Include="easylogging++.h" />
