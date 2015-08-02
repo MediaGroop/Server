@@ -18,3 +18,5 @@ Version 0.0.0.1  21/07/2015
 "Deps/" - project dependencies
 
 "RakAuth/" - sources
+
+"Sources/" - ... not the sources, it's a module, must be at path .\..\..\Source related to .vcproj file

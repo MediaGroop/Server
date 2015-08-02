@@ -5,44 +5,53 @@
 #include "easylogging++.h"
 
 //#region servers container
-static std::map<std::string, ServerInfo> _servers;
+static std::map<int, ServerInfo> _servers; // Server id, serverInfo
 
 
-ServerInfo* getServer(ConnectedClient* c)
+ServerInfo* getServer(ServerClient* c)
 {
-	for (std::map<std::string, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
+	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
 	{
-		if ((*ii).second.associatedClient->addr == c->addr){
+		if (((ServerClient*)(*ii).second.associatedClient)->id == c->id){
 			return &(*ii).second;
 		}
 	}
 	return NULL;
 };
 
-ServerInfo* getServer(std::string name){
-	for (std::map<std::string, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
+ServerInfo* getServer(ConnectedClient* id){
+	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
 	{
-		if ((*ii).first == name) {
+		if ((*ii).second.associatedClient == id)
+			return &(*ii).second;
+	}
+	return NULL;
+};
+
+ServerInfo* getServer(int id){
+	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
+	{
+		if ((*ii).first == id) {
 			return &(*ii).second;
 		}
 	}
 	return NULL;
 };
 
-bool hasServer(std::string name)
+bool hasServer(int id)
 {
-	if (getServer(name) == nullptr)
+	if (getServer(id) == nullptr)
 		return false;
 	return true;
 };
 
-void addServer(std::string name, ServerInfo cl)
+void addServer(int id, ServerInfo cl)
 {
-	_servers.insert(pair<std::string, ServerInfo>(name, cl));
+	_servers.insert(pair<int, ServerInfo>(id, cl));
 };
 
 void removeServer(ServerInfo* ptr){
-	for (std::map<std::string, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
+	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
 	{
 		if (&((*ii).second) == ptr) {
 			_servers.erase((*ii).first);

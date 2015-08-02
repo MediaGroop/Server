@@ -14,7 +14,7 @@ void handleWrongKey(RakNet::RakNetGUID guid){
 void handlePoolerAuth(RakNet::Packet *packet)
 {
 	RakNet::RakString key, shardName;
-	int port, length;
+	int port, length, serverId;
 	RakNet::BitStream bsIn(packet->data, packet->length, false);
 	bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
 
@@ -23,12 +23,20 @@ void handlePoolerAuth(RakNet::Packet *packet)
 	LOG(INFO) << "Their key is: ";
 	LOG(INFO) << key.C_String();
 	if (key == ConfigLoader::getVal("Pooler-Key").c_str()){
+
 		bsIn.Read(shardName);
+		bsIn.Read(serverId);
 		bsIn.Read(port);
-		if (!hasServer(std::string(shardName))){
-			ServerInfo info(packet->systemAddress.ToString(false), port, poolerServer->getClient(packet->guid), ServerState::ONLINE);
-			addServer(shardName.C_String(), info);
-			LOG(INFO) << "Registering " + shardName + " at IP " + packet->systemAddress.ToString(false) + ":" << port;
+
+		if (!hasServer(serverId)){
+			ConnectedClient* cl = poolerServer->getClient(packet->guid);
+			if (cl != nullptr){
+				ServerClient* sc = (ServerClient*)cl;
+				sc->id = serverId;
+				ServerInfo info(packet->systemAddress.ToString(false), port, poolerServer->getClient(packet->guid), ServerState::ONLINE, shardName.C_String());
+				addServer(serverId, info);
+				LOG(INFO) << "Registering " + shardName + " at IP " + packet->systemAddress.ToString(false) + ":" << port;
+			}
 		}
 	}
 	else

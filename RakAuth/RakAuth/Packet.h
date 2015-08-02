@@ -3,7 +3,7 @@
 
 class Packet{
 public:
-	Packet();
-	~Packet();
-	virtual void send(RakNet::RakPeerInterface * by);
+	Packet(){};
+	~Packet(){};
+	virtual void send(RakNet::RakPeerInterface * by, RakNet::AddressOrGUID to){};
 };

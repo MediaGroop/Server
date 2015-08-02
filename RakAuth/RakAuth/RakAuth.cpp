@@ -17,6 +17,7 @@
 #include "PoolerConnectHandler.h"
 #include "ServerRegisterHandler.h"
 #include "PoolerDisconnectHandler.h"
+#include "ClientVerifyRequestHandler.h"
 //Auth
 #include "AuthConnectHandler.h"
 #include "AuthDisconnectHandler.h"
@@ -136,6 +137,7 @@ void handleInitSec(RakNet::Packet* p)
 	LOG(INFO) << "We need to init security!";
 };
 
+
 //Entry point for server
 //Init log
 //Init configuration
@@ -149,7 +151,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG(INFO) << "Log was initialized...";
 	ConfigLoader::init("config.ini");
 	LOG(INFO) << "Configuration loaded...";
-
+	
 	//Generating and saving public and private keys
 	if (!loadKeys())
 	{
@@ -172,6 +174,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	listen.add((short)ID_NEW_INCOMING_CONNECTION, handleAuthconn);
 	listen.add((short)ID_CONNECTION_LOST, handleDisconnectFromAuth);
 	listen.add((short)ACCOUNT_AUTH, handleAuth);
+	//Debug connection
 	listen.add((short)ID_CONNECTION_ATTEMPT_FAILED, handlefail);
 	listen.add((short)ID_CONNECTION_REQUEST, handleReq);
 	listen.add((short)ID_CONNECTION_REQUEST_ACCEPTED, handleReqAcc);

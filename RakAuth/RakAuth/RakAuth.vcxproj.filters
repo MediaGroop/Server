@@ -25,24 +25,27 @@
     <Filter Include="Файлы исходного кода\RakNet">
       <UniqueIdentifier>{63abe3f6-e3be-45ea-99f6-15a1a9de684a}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <Filter Include="Заголовочные файлы\Server\Handlers">
+      <UniqueIdentifier>{39d3f63d-7b84-407a-bb7b-3515e4846b02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Server\Packets">
+      <UniqueIdentifier>{08ab6b7f-5efe-4cca-a85e-e0b848156403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Server\Packets">
+      <UniqueIdentifier>{6a5cc827-a4b6-4b12-98d6-51603f976f06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Server\odb">
+      <UniqueIdentifier>{8773944d-92de-41af-b297-e71be754dea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Server\odb">
+      <UniqueIdentifier>{1ad6b00a-9c3a-48ca-86ed-71b62f79e65d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccountInfo.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="AuthClient.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="AuthConnectHandler.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="AuthDisconnectHandler.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="AuthRequestHandler.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="ConfigLoader.h">
@@ -66,25 +69,13 @@
     <ClInclude Include="NetworkListener.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
-    <ClInclude Include="Packet.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
     <ClInclude Include="PacketTypes.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="PoolerConnectHandler.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="PoolerDisconnectHandler.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="ServerInfo.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerRegisterHandler.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="ServerState.h">
@@ -570,6 +561,42 @@
     <ClInclude Include="CommandListener.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
+    <ClInclude Include="ServerClient.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthConnectHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthDisconnectHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthRequestHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthResponsePacket.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientVerifyRequestHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerRegisterHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolerDisconnectHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolerConnectHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="VerifyResponsePacket.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountInfo-odb.hxx">
+      <Filter>Заголовочные файлы\Server\odb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -923,12 +950,20 @@
     <ClCompile Include="..\Deps\Rak-Net-libcat\Source\UDPProxyServer.cpp">
       <Filter>Файлы исходного кода\RakNet</Filter>
     </ClCompile>
+    <ClCompile Include="VerifyResponsePacket.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="AuthResponsePacket.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="AccountInfo-odb.cxx">
+      <Filter>Файлы исходного кода\Server\odb</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerClient.cpp">
+      <Filter>Файлы исходного кода\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\Deps\odb\libs\odb-d.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Deps\odb\libs\odb-d-2.4-vc12.dll" />
     <None Include="..\Deps\Rak-Net-libcat\Source\RakNet.vcproj">
       <Filter>Файлы исходного кода\RakNet</Filter>
     </None>

@@ -1,18 +1,12 @@
 #include "AuthClient.h"
 
 
-AuthClient::AuthClient(RakNet::AddressOrGUID a) : ConnectedClient(a)
-{
-	account.authorized = false;
-	account.beta = false;
-	account.premium = false;
-
-	account.login = "";
-	account.password = "";
-	account.mail = "";
-}
+AuthClient::AuthClient(RakNet::AddressOrGUID a) : ConnectedClient(a){
+	//AccountInfo acc("", 0, "", false, false);
+	//account = &acc;
+};
 
 
 AuthClient::~AuthClient()
 {
-}
+};

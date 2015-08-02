@@ -14,6 +14,7 @@ namespace FileManager{
 	}
 
 	static bool DirExists(const char * fname){
+		
 		if (fname == NULL || _tcslen(fname) == 0)
 		{
 			return false;
