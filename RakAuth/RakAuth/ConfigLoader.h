@@ -5,10 +5,10 @@
 
 class ConfigLoader{
 private:
+	map <std::string, std::string> _vals;
 	ConfigLoader(){};
 	~ConfigLoader(){};
 public:
-	 map <std::string, std::string> _vals;
 	 static ConfigLoader& getInstance();
 	 static void createDefault(std::string);
 	 static void init(std::string);

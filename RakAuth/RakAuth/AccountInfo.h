@@ -1,21 +1,24 @@
 #pragma once
 #include <string>
 #include "odb\core.hxx"
+#include "easylogging++.h"
 using namespace std;
 
 #pragma db object
 class AccountInfo{
 public:
-	AccountInfo(string l, string pass, string ma, bool pr, bool b): login_(l), password_(pass),
-		mail_(ma), authorized_(false), premium_(pr), beta_(b){
+	AccountInfo(string l, unsigned char* pass, string ma, bool pr, bool b) : login_(l),
+		mail_(ma), premium_(pr), beta_(b){
+		for (int j = 0; j < 20; ++j)
+			password_[j] = pass[j];
 	};
 
-	const string& login() const
+	string& login()
 	{
 		return this->login_;
 	}
 
-	const string& password() const
+	unsigned char* password()
 	{
 		return password_;
 	}
@@ -35,19 +38,24 @@ public:
 		return beta_;
 	}
 
-	//Dynamic field
-	bool authorized_;
+	AccountInfo(){
+		login_ = "";
+		mail_ = "";
+		premium_ = false;
+		beta_ = false;
+	};
 
 private:
-	AccountInfo(){};
 	friend class odb::access;
-	
-	#pragma db id
+
+#pragma db id
 	string login_;
 
-	string password_;
+#pragma db type("BYTEA")
+	unsigned char password_[20];
+
 	string mail_;
-	
+
 	bool premium_; // pay2play implemetation
 	bool beta_; // beta test implemetation
 

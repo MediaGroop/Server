@@ -86,15 +86,15 @@ boolean loadKeys()
 		fread(public_key, sizeof(public_key), 1, fp);
 		fclose(fp);
 		char str[12];
-		for (int i = 0; i < sizeof(public_key) / sizeof(char); ++i)
-		{
-			itoa(i, str, 10);
-			LOG(INFO) << str;
-			LOG(INFO) << "\/";
-			itoa(public_key[i], str, 10);
-			LOG(INFO) << str;
-			LOG(INFO) << "______";
-		}
+		//for (int i = 0; i < sizeof(public_key) / sizeof(char); ++i)
+		//{
+			//itoa(i, str, 10);
+			//LOG(INFO) << str;
+			//LOG(INFO) << "\/";
+			//itoa(public_key[i], str, 10);
+			//LOG(INFO) << str;
+			//LOG(INFO) << "______";
+		//}
 		LOG(INFO) << "Public key is loaded!";
 	}
 	else{
@@ -187,7 +187,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	authServer = &authSrv;
 	authServer->initSecurity(public_key, private_key);//Must be called before starting network thread! (See RakPeerInterface.h for info)
 	std::thread trd1(authServer->startNetworkTrd, authServer, ConfigLoader::getIntVal("Auth-Port"), ConfigLoader::getIntVal("Auth-MaxCons"));
-	authServer->networkTrd = &trd1;
+	authServer->setThread(&trd1);
 	//Auth server end
 	
 	LOG(INFO) << "Auth server was started!";
@@ -196,7 +196,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	NetworkListener plisten;
 	plisten.add((short)ID_NEW_INCOMING_CONNECTION, handleconn);
 	plisten.add((short)AUTH_TO_POOLER, handlePoolerAuth);
+	plisten.add((short)ID_CONNECTION_LOST, handleDisconnectFromPooler);
 	plisten.add((short)ID_DISCONNECTION_NOTIFICATION, handleDisconnectFromPooler);
+	plisten.add((short)VERIFY_ACCOUNT, handleVerifyRequest);
+
+	
 	//plisten.add((short)CHANGE_SERVER_STATE, handleChangeState); will be implemented in future
 	//plisten.add((short)VERIFY_REQUEST, handleVerification); will be implemented in future
 
@@ -204,7 +208,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	poolerServer = &poolSrv;
 	std::thread trd2(poolerServer->startNetworkTrd, poolerServer, ConfigLoader::getIntVal("Pooler-Port"), ConfigLoader::getIntVal("Pooler-MaxCons"));
-	poolerServer->networkTrd = &trd2;
+	poolerServer->setThread(&trd2);
 	//Pooler server end
 	
 	LOG(INFO) << "Pooler server was started!";
@@ -213,12 +217,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	cin >> str; // just for blocking
 	
 	LOG(INFO) << "Stopping auth server...";
-	authServer->running = false;
-	authServer->networkTrd->join();
+	authServer->setRunning(false);
+	authServer->getThread()->join();
 
 	LOG(INFO) << "Stopping pooler server...";
-	poolerServer->running = false;
-	poolerServer->networkTrd->join();
+	poolerServer->setRunning(false);
+	poolerServer->getThread()->join();
 	
 	return 0;
 }

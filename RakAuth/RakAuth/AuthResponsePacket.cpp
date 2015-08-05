@@ -4,7 +4,12 @@
 
 AuthResponsePacket::AuthResponsePacket(unsigned char i) : id(i){};
 
-AuthResponsePacket::AuthResponsePacket(unsigned char i, RakNet::RakString s, RakNet::RakString addr, int p) : id(i), session(s), address(addr), port(p){};
+AuthResponsePacket::AuthResponsePacket(unsigned char i, unsigned char s[20], RakNet::RakString addr, int p) : id(i), address(addr), port(p){
+	for (int i = 0; i < 20; ++i)
+	{
+		session[i] = s[i];
+	}
+};
 
 AuthResponsePacket::~AuthResponsePacket(){};
 
@@ -14,12 +19,14 @@ void AuthResponsePacket::send(RakNet::RakPeerInterface * by, RakNet::AddressOrGU
 
 	bsOut.Write((RakNet::MessageID)AUTH_RESPONCE);
 	bsOut.Write(id);
+
 	if (id == 3)
 	{
-		bsOut.Write(session);
+		for (int i = 0; i < 20; ++i)
+			bsOut.Write(session[i]);
+
 		bsOut.Write(address);
 		bsOut.Write(port);
-
 	}
 
 	by->Send(&bsOut, HIGH_PRIORITY, RELIABLE_ORDERED, 0, to, false);

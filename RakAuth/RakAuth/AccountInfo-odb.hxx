@@ -91,18 +91,6 @@ namespace odb
   template <typename A>
   struct query_columns< ::AccountInfo, id_pgsql, A >
   {
-    // authorized
-    //
-    typedef
-    pgsql::query_column<
-      pgsql::value_traits<
-        bool,
-        pgsql::id_boolean >::query_type,
-      pgsql::id_boolean >
-    authorized_type_;
-
-    static const authorized_type_ authorized;
-
     // login
     //
     typedef
@@ -120,9 +108,9 @@ namespace odb
     typedef
     pgsql::query_column<
       pgsql::value_traits<
-        ::std::string,
-        pgsql::id_string >::query_type,
-      pgsql::id_string >
+        unsigned char[20],
+        pgsql::id_bytea >::query_type,
+      pgsql::id_bytea >
     password_type_;
 
     static const password_type_ password;
@@ -163,11 +151,6 @@ namespace odb
 
     static const beta_type_ beta;
   };
-
-  template <typename A>
-  const typename query_columns< ::AccountInfo, id_pgsql, A >::authorized_type_
-  query_columns< ::AccountInfo, id_pgsql, A >::
-  authorized (A::table_name, "\"authorized\"", 0);
 
   template <typename A>
   const typename query_columns< ::AccountInfo, id_pgsql, A >::login_type_
@@ -216,11 +199,6 @@ namespace odb
 
     struct image_type
     {
-      // authorized_
-      //
-      bool authorized_value;
-      bool authorized_null;
-
       // login_
       //
       details::buffer login_value;
@@ -288,7 +266,7 @@ namespace odb
 
     typedef pgsql::query_base query_base_type;
 
-    static const std::size_t column_count = 6UL;
+    static const std::size_t column_count = 5UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;

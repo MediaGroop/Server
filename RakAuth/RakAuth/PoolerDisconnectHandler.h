@@ -6,11 +6,11 @@
 
 void handleDisconnectFromPooler(RakNet::Packet * p)
 {
-	ServerInfo* ptr = getServer(poolerServer->getClient(p->guid));
+	ConnectedClient* ptr = poolerServer->getClient(p->guid);
 	if (ptr != nullptr)
 	{
 		removeServer(ptr);
 	}
 	poolerServer->removeClient(p->guid);
-	LOG(INFO) << "Server was removed!";
+	LOG(INFO) << "Server client removed!";
 }

@@ -31,9 +31,7 @@ void handlePoolerAuth(RakNet::Packet *packet)
 		if (!hasServer(serverId)){
 			ConnectedClient* cl = poolerServer->getClient(packet->guid);
 			if (cl != nullptr){
-				ServerClient* sc = (ServerClient*)cl;
-				sc->id = serverId;
-				ServerInfo info(packet->systemAddress.ToString(false), port, poolerServer->getClient(packet->guid), ServerState::ONLINE, shardName.C_String());
+				ServerInfo info(packet->systemAddress.ToString(false), port, poolerServer->getClient(packet->guid), ServerState::ONLINE, shardName.C_String(), serverId);
 				addServer(serverId, info);
 				LOG(INFO) << "Registering " + shardName + " at IP " + packet->systemAddress.ToString(false) + ":" << port;
 			}

@@ -7,19 +7,36 @@
 #include "AccountInfo-odb.hxx"
 #include "openssl\sha.h"
 #include "AuthResponsePacket.h"
+#include "Utils.h"
 
-RakNet::RakString calcSession(RakNet::RakNetGUID* guid)
+bool logged(RakNet::RakString login)
 {
+	LOG(INFO) << "Iterating through clients...";
+	for (map<RakNet::RakNetGUID, ConnectedClient>::iterator ii = authServer->get_connections()->begin(); ii != authServer->get_connections()->end(); ++ii)
+	{
+		ConnectedClient* p = &(*ii).second;
+		AuthClient* ac = getAuthClient(p);
+		if (ac->getAccount() != nullptr)
+		{
+			if (RakNet::RakString(ac->getAccount()->login().c_str()) == login)
+			{
+				return ac->authorized();
+			}
+		}
+	}
+	return false;
+}
 
+unsigned char* calcSession(RakNet::RakNetGUID* guid)
+{
 	char toHash[32];
 
 	guid->ToString(toHash);
 
 	unsigned char hash[20];
 	SHA1(reinterpret_cast<unsigned char*>(toHash), strlen(toHash), hash);
-	
-	RakNet::RakString session(hash);
-	return session;
+
+	return hash;
 }
 
 void handleAuth(RakNet::Packet *packet){
@@ -35,109 +52,139 @@ void handleAuth(RakNet::Packet *packet){
 		RakNet::RakString acc;//, pas;
 		unsigned char hash[20];
 		RakNet::StringCompressor::Instance()->DecodeString(&acc, 256, &bsIn);
-		bsIn.Read(hash);
-		int serverId;
-		bsIn.Read(serverId);
 
-		LOG(INFO) << "Credentials:";
-		LOG(INFO) << "Account: ";
-		LOG(INFO) << acc.C_String();
-		LOG(INFO) << "HASH: ";
-		LOG(INFO) << hash;
-		LOG(INFO) << "ServerId:";
-		LOG(INFO) << serverId;
+		if (!logged(acc)){
+			//LOG(INFO) << "Not logged!";
+			for (int i = 0; i < 20; ++i)
+				bsIn.Read(hash[i]);
 
-		AuthClient* ac = (AuthClient*)cl;
-		try
-		{
-			typedef odb::query<AccountInfo> query;
-			typedef odb::result<AccountInfo> result;
+			int serverId;
+			bsIn.Read(serverId);
 
-			odb::transaction t(dataBase->begin());
+			LOG(INFO) << "Credentials:";
+			LOG(INFO) << "Account: ";
+			LOG(INFO) << acc.C_String();
+		//	LOG(INFO) << "HASH: ";
+	//		for (int i = 0; i < 20; ++i)
+//				LOG(INFO) << hash[i];
 
-			result r(dataBase->query<AccountInfo>(query::login == std::string(acc.C_String())));
+			LOG(INFO) << "ServerId:";
+			LOG(INFO) << serverId;
 
-			bool exists = false;
-			//Always must be one iteration or less(In case if there's no user)
-			string hashStr(reinterpret_cast<char*>(hash));
-			for (result::iterator i(r.begin()); i != r.end(); ++i)
+			AuthClient* ac = getAuthClient(cl);
+			try
 			{
-				exists = true;
-				if (hashStr == i->password())
-				{
-					i->authorized_ = true;					
+				bool exists = false;
+
+				try{
+					odb::transaction t(dataBase->begin());
+					dataBase->load(std::string(acc.C_String()), *(ac->getAccount()));
+					exists = true;
+					t.commit();
+
 				}
-			}
-
-			t.commit();
-			if (exists)
-			{
-				if (ac->account->authorized_)
+				catch (odb::exception& e)
 				{
-					if (ac->account->beta())
-					{
-						//beta access
-						//Let player in - calculate session and send
-						RakNet::RakString session = calcSession(&packet->guid);
-						ac->session = session;
-						ServerInfo* info = getServer(serverId);
-						if (info != nullptr){
-							//weird convertation                                           \/
-							AuthResponsePacket pack(3, session, RakNet::RakString(info->host.c_str()), info->port);
-							pack.send(authServer->peer, packet->systemAddress);
-						}
-						else
-						{
+					LOG(INFO) << e.what();
+				}
 
-							AuthResponsePacket pack(4);
-							pack.send(authServer->peer, packet->systemAddress);
-						}
-					}
-					else
+				if (exists)
+				{
+				//	LOG(INFO) << "data loaded! HASH: ";
+			//		for (int i = 0; i < 20; ++i)
+		//				LOG(INFO) << ac->getAccount()->password()[i];
+
+					if (compareHashes(ac->getAccount()->password(), hash))
 					{
-						if (ac->account->premium())
+						ac->setAuthorized(true);
+						LOG(INFO) << "Pass is valid!";
+					}
+					else{
+						ac->setAuthorized(false);
+						LOG(INFO) << "Pass is invalid!";
+					}
+
+
+					if (ac->authorized())
+					{
+						if (ac->getAccount()->beta())
 						{
-							//has premium(Beta has more importance - after beta test, remove "beta" flag)
+							//beta access
 							//Let player in - calculate session and send
-							RakNet::RakString session = calcSession(&packet->guid);
-							ac->session = session; ServerInfo* info = getServer(serverId);
+							ac->setSession(calcSession(&packet->guid));
+							ServerInfo* info = getServer(serverId);
 							if (info != nullptr){
 								//weird convertation                                           \/
-								AuthResponsePacket pack(3, session, RakNet::RakString(info->host.c_str()), info->port);
-								pack.send(authServer->peer, packet->systemAddress);
+								AuthResponsePacket pack(3, ac->getSession(), RakNet::RakString(info->getHost().c_str()), info->getPort());
+								pack.send(authServer->getPeer(), packet->systemAddress);
+								ac->setAuthorized(true);
+
 							}
 							else
 							{
 
 								AuthResponsePacket pack(4);
-								pack.send(authServer->peer, packet->systemAddress);
+								pack.send(authServer->getPeer(), packet->systemAddress);
+								ac->setAuthorized(false);
 							}
 						}
 						else
 						{
-							//Warn for account not premium
-							AuthResponsePacket pack(2);
-							pack.send(authServer->peer, packet->systemAddress);
+							if (ac->getAccount()->premium())
+							{
+								//has premium(Beta has more importance - after beta test, remove "beta" flag)
+								//Let player in - calculate session and send
+								ac->setSession(calcSession(&packet->guid));
+								ServerInfo* info = getServer(serverId);
+								if (info != nullptr){
+									//weird convertation                                           \/
+									AuthResponsePacket pack(3, ac->getSession(), RakNet::RakString(info->getHost().c_str()), info->getPort());
+									pack.send(authServer->getPeer(), packet->systemAddress);
+									ac->setAuthorized(true);
+
+								}
+								else
+								{
+									ac->setAuthorized(false);
+									AuthResponsePacket pack(4);
+									pack.send(authServer->getPeer(), packet->systemAddress);
+								}
+							}
+							else
+							{
+								//Warn for account not premium
+								AuthResponsePacket pack(2);
+								pack.send(authServer->getPeer(), packet->systemAddress);
+								ac->setAuthorized(false);
+							}
 						}
+					}
+					else
+					{
+						AuthResponsePacket pack(1);
+						pack.send(authServer->getPeer(), packet->systemAddress);
+						ac->setAuthorized(false);
+						//Warn for wrong credentials
 					}
 				}
 				else
 				{
-					AuthResponsePacket pack(1);
-					pack.send(authServer->peer, packet->systemAddress);
-					//Warn for wrong credentials
+					AuthResponsePacket pack(0);
+					pack.send(authServer->getPeer(), packet->systemAddress);
+					ac->setAuthorized(false);
+					//Warn for no username
 				}
 			}
-			else
+			catch (const odb::exception& e)
 			{
-				AuthResponsePacket pack(0);
-				pack.send(authServer->peer, packet->systemAddress);
-				//Warn for no username
+				LOG(INFO) << e.what();
 			}
 		}
-		catch (const odb::exception& e)
+		else
 		{
-			LOG(INFO) << e.what();
+			LOG(INFO) << "Already logged in!";
+			AuthResponsePacket pack(5);
+			pack.send(authServer->getPeer(), packet->systemAddress);
 		}
 	}
 };

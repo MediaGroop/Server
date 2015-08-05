@@ -561,9 +561,6 @@
     <ClInclude Include="CommandListener.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
-    <ClInclude Include="ServerClient.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="AuthConnectHandler.h">
       <Filter>Заголовочные файлы\Server\Handlers</Filter>
     </ClInclude>
@@ -594,8 +591,14 @@
     <ClInclude Include="Packet.h">
       <Filter>Заголовочные файлы\Server\Packets</Filter>
     </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Заголовочные файлы\Server</Filter>
+    </ClInclude>
     <ClInclude Include="AccountInfo-odb.hxx">
       <Filter>Заголовочные файлы\Server\odb</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientsTracker.h">
+      <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -958,9 +961,6 @@
     </ClCompile>
     <ClCompile Include="AccountInfo-odb.cxx">
       <Filter>Файлы исходного кода\Server\odb</Filter>
-    </ClCompile>
-    <ClCompile Include="ServerClient.cpp">
-      <Filter>Файлы исходного кода\Server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,21 +8,10 @@
 static std::map<int, ServerInfo> _servers; // Server id, serverInfo
 
 
-ServerInfo* getServer(ServerClient* c)
-{
-	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
-	{
-		if (((ServerClient*)(*ii).second.associatedClient)->id == c->id){
-			return &(*ii).second;
-		}
-	}
-	return NULL;
-};
-
 ServerInfo* getServer(ConnectedClient* id){
 	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
 	{
-		if ((*ii).second.associatedClient == id)
+		if ((*ii).second.getAssocClient() == id)
 			return &(*ii).second;
 	}
 	return NULL;
@@ -50,10 +39,10 @@ void addServer(int id, ServerInfo cl)
 	_servers.insert(pair<int, ServerInfo>(id, cl));
 };
 
-void removeServer(ServerInfo* ptr){
+void removeServer(ConnectedClient* c){
 	for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
 	{
-		if (&((*ii).second) == ptr) {
+		if ((*ii).second.getAssocClient() == c) {
 			_servers.erase((*ii).first);
 			return;
 		}

@@ -47,9 +47,8 @@ namespace odb
   const unsigned int access::object_traits_impl< ::AccountInfo, id_pgsql >::
   persist_statement_types[] =
   {
-    pgsql::bool_oid,
     pgsql::text_oid,
-    pgsql::text_oid,
+    pgsql::bytea_oid,
     pgsql::text_oid,
     pgsql::bool_oid,
     pgsql::bool_oid
@@ -64,8 +63,7 @@ namespace odb
   const unsigned int access::object_traits_impl< ::AccountInfo, id_pgsql >::
   update_statement_types[] =
   {
-    pgsql::bool_oid,
-    pgsql::text_oid,
+    pgsql::bytea_oid,
     pgsql::text_oid,
     pgsql::bool_oid,
     pgsql::bool_oid,
@@ -116,13 +114,9 @@ namespace odb
 
     bool grew (false);
 
-    // authorized_
-    //
-    t[0UL] = 0;
-
     // login_
     //
-    if (t[1UL])
+    if (t[0UL])
     {
       i.login_value.capacity (i.login_size);
       grew = true;
@@ -130,7 +124,7 @@ namespace odb
 
     // password_
     //
-    if (t[2UL])
+    if (t[1UL])
     {
       i.password_value.capacity (i.password_size);
       grew = true;
@@ -138,7 +132,7 @@ namespace odb
 
     // mail_
     //
-    if (t[3UL])
+    if (t[2UL])
     {
       i.mail_value.capacity (i.mail_size);
       grew = true;
@@ -146,11 +140,11 @@ namespace odb
 
     // premium_
     //
-    t[4UL] = 0;
+    t[3UL] = 0;
 
     // beta_
     //
-    t[5UL] = 0;
+    t[4UL] = 0;
 
     return grew;
   }
@@ -166,13 +160,6 @@ namespace odb
 
     std::size_t n (0);
 
-    // authorized_
-    //
-    b[n].type = pgsql::bind::boolean_;
-    b[n].buffer = &i.authorized_value;
-    b[n].is_null = &i.authorized_null;
-    n++;
-
     // login_
     //
     if (sk != statement_update)
@@ -187,7 +174,7 @@ namespace odb
 
     // password_
     //
-    b[n].type = pgsql::bind::text;
+    b[n].type = pgsql::bind::bytea;
     b[n].buffer = i.password_value.data ();
     b[n].capacity = i.password_value.capacity ();
     b[n].size = &i.password_size;
@@ -242,20 +229,6 @@ namespace odb
 
     bool grew (false);
 
-    // authorized_
-    //
-    {
-      bool const& v =
-        o.authorized_;
-
-      bool is_null (false);
-      pgsql::value_traits<
-          bool,
-          pgsql::id_boolean >::set_image (
-        i.authorized_value, is_null, v);
-      i.authorized_null = is_null;
-    }
-
     // login_
     //
     if (sk == statement_insert)
@@ -281,15 +254,15 @@ namespace odb
     // password_
     //
     {
-      ::std::string const& v =
+      unsigned char const* v =
         o.password_;
 
       bool is_null (false);
       std::size_t size (0);
       std::size_t cap (i.password_value.capacity ());
       pgsql::value_traits<
-          ::std::string,
-          pgsql::id_string >::set_image (
+          unsigned char[20],
+          pgsql::id_bytea >::set_image (
         i.password_value,
         size,
         is_null,
@@ -360,20 +333,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
 
-    // authorized_
-    //
-    {
-      bool& v =
-        o.authorized_;
-
-      pgsql::value_traits<
-          bool,
-          pgsql::id_boolean >::set_value (
-        v,
-        i.authorized_value,
-        i.authorized_null);
-    }
-
     // login_
     //
     {
@@ -392,12 +351,12 @@ namespace odb
     // password_
     //
     {
-      ::std::string& v =
+      unsigned char* v =
         o.password_;
 
       pgsql::value_traits<
-          ::std::string,
-          pgsql::id_string >::set_value (
+          unsigned char[20],
+          pgsql::id_bytea >::set_value (
         v,
         i.password_value,
         i.password_size,
@@ -474,18 +433,16 @@ namespace odb
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::persist_statement[] =
   "INSERT INTO \"AccountInfo\" "
-  "(\"authorized\", "
-  "\"login\", "
+  "(\"login\", "
   "\"password\", "
   "\"mail\", "
   "\"premium\", "
   "\"beta\") "
   "VALUES "
-  "($1, $2, $3, $4, $5, $6)";
+  "($1, $2, $3, $4, $5)";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::find_statement[] =
   "SELECT "
-  "\"AccountInfo\".\"authorized\", "
   "\"AccountInfo\".\"login\", "
   "\"AccountInfo\".\"password\", "
   "\"AccountInfo\".\"mail\", "
@@ -497,12 +454,11 @@ namespace odb
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::update_statement[] =
   "UPDATE \"AccountInfo\" "
   "SET "
-  "\"authorized\"=$1, "
-  "\"password\"=$2, "
-  "\"mail\"=$3, "
-  "\"premium\"=$4, "
-  "\"beta\"=$5 "
-  "WHERE \"login\"=$6";
+  "\"password\"=$1, "
+  "\"mail\"=$2, "
+  "\"premium\"=$3, "
+  "\"beta\"=$4 "
+  "WHERE \"login\"=$5";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::erase_statement[] =
   "DELETE FROM \"AccountInfo\" "
@@ -510,7 +466,6 @@ namespace odb
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::query_statement[] =
   "SELECT "
-  "\"AccountInfo\".\"authorized\", "
   "\"AccountInfo\".\"login\", "
   "\"AccountInfo\".\"password\", "
   "\"AccountInfo\".\"mail\", "

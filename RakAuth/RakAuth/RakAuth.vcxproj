@@ -345,6 +345,7 @@
     <ClInclude Include="AuthDisconnectHandler.h" />
     <ClInclude Include="AuthRequestHandler.h" />
     <ClInclude Include="AuthResponsePacket.h" />
+    <ClInclude Include="ClientsTracker.h" />
     <ClInclude Include="ClientVerifyRequestHandler.h" />
     <ClInclude Include="CommandListener.h" />
     <ClInclude Include="ConfigLoader.h" />
@@ -359,7 +360,6 @@
     <ClInclude Include="PoolerConnectHandler.h" />
     <ClInclude Include="PoolerDisconnectHandler.h" />
     <ClInclude Include="Server.h" />
-    <ClInclude Include="ServerClient.h" />
     <ClInclude Include="ServerInfo.h" />
     <ClInclude Include="ServerRegisterHandler.h" />
     <ClInclude Include="ServerState.h" />
@@ -367,6 +367,7 @@
     <ClInclude Include="ServVars.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="VerifyResponsePacket.h" />
   </ItemGroup>
   <ItemGroup>
@@ -488,7 +489,6 @@
     <ClCompile Include="NetworkListener.cpp" />
     <ClCompile Include="RakAuth.cpp" />
     <ClCompile Include="Server.cpp" />
-    <ClCompile Include="ServerClient.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="VerifyResponsePacket.cpp" />
   </ItemGroup>
