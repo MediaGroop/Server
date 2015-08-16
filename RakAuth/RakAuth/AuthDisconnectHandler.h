@@ -10,12 +10,20 @@ void handleDisconnectFromAuth(RakNet::Packet * p)
 	ConnectedClient* c = authServer->getClient(p->guid);
 	if (c != nullptr)
 	{
-		//TODO: add remove code
-		//_clients.erase(c);
+		AuthClient* ac = getAuthClient(c);
+		if (ac != nullptr){
+			if (!ac->authorized()){
+				_clients.erase(c);
+				LOG(INFO) << "Client was removed!";
+			}
+		}
+		else{
+			_clients.erase(c);
+			LOG(INFO) << "Client was removed!";
+		}
 	}
-	LOG(INFO) << "Removing client";
-	//LOG(INFO) << "GUID:";
-	//LOG(INFO) << p->guid.ToString();
+	//LOG(INFO) << "Removing client";
 	authServer->removeClient(p->guid);
-	LOG(INFO) << "Client was removed!";
+	//LOG(INFO) << "Client was removed!";
 };
+

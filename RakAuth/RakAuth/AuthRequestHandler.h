@@ -8,6 +8,49 @@
 #include "openssl\sha.h"
 #include "AuthResponsePacket.h"
 #include "Utils.h"
+#include "ServersTracker.h"
+#include "AddServerPacket.h"
+#include "ServVars.h"
+#include "CharacterLink-odb.hxx"
+#include "AddCharacterPacket.h"
+
+static RakNet::RakString unavail = "Server unavailable";
+
+void requestCharacters(ConnectedClient* to, RakNet::RakString login){
+	typedef odb::query<CharacterLink> query;
+	typedef odb::result<CharacterLink> result;
+
+	odb::transaction t(dataBase->begin());
+	std::string str = std::string(login.C_String());
+	result r(dataBase->query<CharacterLink>(query::acc_name == str));
+
+	for (result::iterator i(r.begin()); i != r.end(); ++i)
+	{
+		if (hasServer(i->server()))
+		{
+			AddCharacterPacket packet(RakNet::RakString(i->name().c_str()), RakNet::RakString(getServer(i->server())->getName().c_str()));
+			packet.send(authServer->getPeer(), to->getAddr()->systemAddress);
+		}
+		else
+		{
+			AddCharacterPacket packet(RakNet::RakString(i->name().c_str()), unavail);
+			packet.send(authServer->getPeer(), to->getAddr()->systemAddress);
+		}
+	}
+
+	t.commit();
+
+};
+
+
+void sendServers(ConnectedClient* to){
+	for (map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
+	{
+		AddServerPacket packet(RakNet::RakString((*ii).second.getName().c_str()), (*ii).first);
+		packet.send(authServer->getPeer(), authServer->getPeer()->GetGuidFromSystemAddress(to->getAddr()->systemAddress));
+	}
+};
+
 
 bool logged(RakNet::RakString login)
 {
@@ -58,18 +101,16 @@ void handleAuth(RakNet::Packet *packet){
 			for (int i = 0; i < 20; ++i)
 				bsIn.Read(hash[i]);
 
-			int serverId;
-			bsIn.Read(serverId);
+			//int serverId;
+			//bsIn.Read(serverId);
 
-			LOG(INFO) << "Credentials:";
+			LOG(INFO) << "Credentials - ";
 			LOG(INFO) << "Account: ";
 			LOG(INFO) << acc.C_String();
-		//	LOG(INFO) << "HASH: ";
-	//		for (int i = 0; i < 20; ++i)
-//				LOG(INFO) << hash[i];
+			//	LOG(INFO) << "HASH: ";
+			//		for (int i = 0; i < 20; ++i)
+			//				LOG(INFO) << hash[i];
 
-			LOG(INFO) << "ServerId:";
-			LOG(INFO) << serverId;
 
 			AuthClient* ac = getAuthClient(cl);
 			try
@@ -90,9 +131,9 @@ void handleAuth(RakNet::Packet *packet){
 
 				if (exists)
 				{
-				//	LOG(INFO) << "data loaded! HASH: ";
-			//		for (int i = 0; i < 20; ++i)
-		//				LOG(INFO) << ac->getAccount()->password()[i];
+					//	LOG(INFO) << "data loaded! HASH: ";
+					//		for (int i = 0; i < 20; ++i)
+					//				LOG(INFO) << ac->getAccount()->password()[i];
 
 					if (compareHashes(ac->getAccount()->password(), hash))
 					{
@@ -107,57 +148,23 @@ void handleAuth(RakNet::Packet *packet){
 
 					if (ac->authorized())
 					{
-						if (ac->getAccount()->beta())
-						{
-							//beta access
-							//Let player in - calculate session and send
-							ac->setSession(calcSession(&packet->guid));
-							ServerInfo* info = getServer(serverId);
-							if (info != nullptr){
-								//weird convertation                                           \/
-								AuthResponsePacket pack(3, ac->getSession(), RakNet::RakString(info->getHost().c_str()), info->getPort());
-								pack.send(authServer->getPeer(), packet->systemAddress);
-								ac->setAuthorized(true);
-
-							}
+						//has premium(Beta has more importance - after beta test, remove "beta" flag)
+						//Let player in - calculate session and send
+						ac->setSession(calcSession(&packet->guid));
+						//ServerInfo* info = getServer(serverId);
+						//		if (info != nullptr){
+						AuthResponsePacket pack(3, ac->getSession(), ac->getAccount()->premium(), ac->getAccount()->beta(), RakNet::RakString(ac->getAccount()->mail().c_str()));
+						pack.send(authServer->getPeer(), packet->systemAddress);
+						ac->setAuthorized(true);
+						sendServers(cl);
+						requestCharacters(cl, acc);
+						/*	}
 							else
 							{
-
-								AuthResponsePacket pack(4);
-								pack.send(authServer->getPeer(), packet->systemAddress);
-								ac->setAuthorized(false);
-							}
-						}
-						else
-						{
-							if (ac->getAccount()->premium())
-							{
-								//has premium(Beta has more importance - after beta test, remove "beta" flag)
-								//Let player in - calculate session and send
-								ac->setSession(calcSession(&packet->guid));
-								ServerInfo* info = getServer(serverId);
-								if (info != nullptr){
-									//weird convertation                                           \/
-									AuthResponsePacket pack(3, ac->getSession(), RakNet::RakString(info->getHost().c_str()), info->getPort());
-									pack.send(authServer->getPeer(), packet->systemAddress);
-									ac->setAuthorized(true);
-
-								}
-								else
-								{
-									ac->setAuthorized(false);
-									AuthResponsePacket pack(4);
-									pack.send(authServer->getPeer(), packet->systemAddress);
-								}
-							}
-							else
-							{
-								//Warn for account not premium
-								AuthResponsePacket pack(2);
-								pack.send(authServer->getPeer(), packet->systemAddress);
-								ac->setAuthorized(false);
-							}
-						}
+							ac->setAuthorized(false);
+							AuthResponsePacket pack(4);
+							pack.send(authServer->getPeer(), packet->systemAddress);
+							}*/
 					}
 					else
 					{
@@ -183,8 +190,9 @@ void handleAuth(RakNet::Packet *packet){
 		else
 		{
 			LOG(INFO) << "Already logged in!";
-			AuthResponsePacket pack(5);
+			AuthResponsePacket pack(4);
 			pack.send(authServer->getPeer(), packet->systemAddress);
 		}
 	}
+
 };

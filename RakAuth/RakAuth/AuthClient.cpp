@@ -2,7 +2,7 @@
 
 
 AuthClient::AuthClient(){
-	this->account = *new AccountInfo;
+	this->account = *new AccountInfo();
 };
 
 

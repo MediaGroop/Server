@@ -600,6 +600,39 @@
     <ClInclude Include="ClientsTracker.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterLink.h">
+      <Filter>Заголовочные файлы\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="AddServerPacket.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="AddCharacterPacket.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveCharacter.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterLink-odb.hxx">
+      <Filter>Заголовочные файлы\Server\odb</Filter>
+    </ClInclude>
+    <ClInclude Include="CharRequestHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateCharacterHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckNicknameHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckNickPacket.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerInfoPacket.h">
+      <Filter>Заголовочные файлы\Server\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="CharDeleteHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -961,6 +994,24 @@
     </ClCompile>
     <ClCompile Include="AccountInfo-odb.cxx">
       <Filter>Файлы исходного кода\Server\odb</Filter>
+    </ClCompile>
+    <ClCompile Include="AddServerPacket.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="AddCharacterPacket.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveCharacter.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterLink-odb.cxx">
+      <Filter>Файлы исходного кода\Server\odb</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckNickPacket.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerInfoPacket.cpp">
+      <Filter>Файлы исходного кода\Server\Packets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -63,31 +63,42 @@ void handleVerifyRequest(RakNet::Packet *packet)
 	//What if we recieved corrupted packet?
 	if (cc != nullptr)
 	{
-		RakNet::BitStream bsIn(packet->data, packet->length, false);
-		bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
+		AuthClient* ac = getAuthClient(cc);
+		if (ac != nullptr){
+			if (ac->authorized()){
+				RakNet::BitStream bsIn(packet->data, packet->length, false);
+				bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
 
-		RakNet::RakString login;
-		unsigned char hash[20];
-		//Should I use string compressor??
-		bsIn.Read(login);
+				RakNet::RakString login;
+				unsigned char hash[20];
+				//Should I use string compressor??
+				bsIn.Read(login);
 
-		for (int i = 0; i < 20; ++i){
-			bsIn.Read(hash[i]);
-		//	LOG(INFO) << hash[i];
-		}
-			
+				for (int i = 0; i < 20; ++i){
+					bsIn.Read(hash[i]);
+					//	LOG(INFO) << hash[i];
+				}
 
-		if (checkForClient(login, hash))
-		{
-			VerifyResponsePacket p(0, hash);
-			p.send(poolerServer->getPeer(), packet->systemAddress);
-			LOG(INFO) << "Verified!";
-		}
-		else
-		{
-			VerifyResponsePacket p(1, hash);
-			p.send(poolerServer->getPeer(), packet->systemAddress);
-			LOG(INFO) << "Invalid hash!(In case if there were message \"No such user\" - no user)";
+				if (ac->getAccount() != nullptr){
+					if (checkForClient(login, hash) && (ac->getAccount()->premium() || ac->getAccount()->beta()))
+					{
+						VerifyResponsePacket p(0, hash);
+						p.send(poolerServer->getPeer(), packet->systemAddress);
+					//	LOG(INFO) << "Verified!";
+					}
+					else
+					{
+						VerifyResponsePacket p(1, hash);
+						p.send(poolerServer->getPeer(), packet->systemAddress);
+					//	LOG(INFO) << "Invalid hash!(In case if there were message \"No such user\" - no user)";
+					}
+				}
+				else
+				{
+					VerifyResponsePacket p(1, hash);
+					p.send(poolerServer->getPeer(), packet->systemAddress);
+				}
+			}
 		}
 	}
 };

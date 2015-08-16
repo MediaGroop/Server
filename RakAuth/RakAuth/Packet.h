@@ -4,6 +4,6 @@
 class Packet{
 public:
 	Packet(){};
-	~Packet(){};
+	virtual ~Packet(){};
 	virtual void send(RakNet::RakPeerInterface * by, RakNet::AddressOrGUID to){};
 };

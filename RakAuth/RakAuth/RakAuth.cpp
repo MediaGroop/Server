@@ -22,6 +22,10 @@
 #include "AuthConnectHandler.h"
 #include "AuthDisconnectHandler.h"
 #include "AuthRequestHandler.h"
+#include "CheckNicknameHandler.h"
+#include "CreateCharacterHandler.h"
+#include "CharRequestHandler.h"
+#include "CharDeleteHandler.h"
 
 using namespace FileManager;
 
@@ -173,7 +177,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	NetworkListener listen;
 	listen.add((short)ID_NEW_INCOMING_CONNECTION, handleAuthconn);
 	listen.add((short)ID_CONNECTION_LOST, handleDisconnectFromAuth);
+	listen.add((short)ID_CONNECTION_LOST, handleDisconnectFromAuth);
 	listen.add((short)ACCOUNT_AUTH, handleAuth);
+	listen.add((short)CHECK_NICKNAME, handleNickCheck);
+	listen.add((short)CREATE_CHARACTER, handleCharacterCreation);
+	listen.add((short)REQUEST_CHARACTER_INFO, charReqHandler);
+	listen.add((short)DELETE_CHARACTER, charDelHandle);
+
 	//Debug connection
 	listen.add((short)ID_CONNECTION_ATTEMPT_FAILED, handlefail);
 	listen.add((short)ID_CONNECTION_REQUEST, handleReq);
