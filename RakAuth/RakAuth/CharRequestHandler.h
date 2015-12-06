@@ -21,6 +21,9 @@ void charReqHandler(RakNet::Packet* packet)
 				RakNet::RakString nick;
 				bsIn.Read(nick);
 
+				LOG(DEBUG) << "Nick: " << nick.C_String();
+				LOG(DEBUG) << "Server name: " << server.C_String();
+
 				int serverId = -1;
 				for (std::map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
 				{
@@ -31,7 +34,7 @@ void charReqHandler(RakNet::Packet* packet)
 				}
 				if (serverId != -1)
 				{
-
+					//TODO: gather and send info
 				}
 				else
 				{

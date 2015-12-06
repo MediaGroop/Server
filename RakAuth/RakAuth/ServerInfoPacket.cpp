@@ -1,7 +1,7 @@
 #include "ServerInfoPacket.h"
 #include "PacketTypes.h"
 
-ServerInfoPacket::ServerInfoPacket(RakNet::RakString add, int p): addr(add), port(p){
+ServerInfoPacket::ServerInfoPacket(RakNet::RakString add, int p) : addr(add), port(p){
 
 };
 

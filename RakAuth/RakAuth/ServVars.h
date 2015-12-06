@@ -6,16 +6,12 @@
 
 //#region vars
 //Security keys
-static char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
-static char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
+extern char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
+extern char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
 
-static Server* authServer;
-static Server* poolerServer;
+extern Server* authServer;
+extern Server* poolerServer;
 
-std::auto_ptr<odb::database> dataBase(new odb::pgsql::database(
-	"postgres",
-	"root",
-	"data",
-	"localhost"));
+extern std::auto_ptr<odb::database> dataBase;
 
 //#endregion

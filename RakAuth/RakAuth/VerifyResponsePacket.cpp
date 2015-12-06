@@ -12,5 +12,7 @@ void VerifyResponsePacket::send(RakNet::RakPeerInterface * by, RakNet::AddressOr
 		)
 		bsOut.Write(hash[i]);
 	
+	bsOut.Write(_login);
+
 	by->Send(&bsOut, HIGH_PRIORITY, RELIABLE_ORDERED, 0, to, false);
 }

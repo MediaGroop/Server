@@ -6,11 +6,11 @@ class AddCharacterPacket :
 	public Packet
 {
 private:
-	RakNet::RakString server_name_;
-	RakNet::RakString char_name_;
+	int _server_id;
+	RakNet::RakString char_name_, server_name_;
 
 public:
-	AddCharacterPacket(RakNet::RakString, RakNet::RakString);
+	AddCharacterPacket(RakNet::RakString, RakNet::RakString, int);
 	~AddCharacterPacket();
 	virtual void send(RakNet::RakPeerInterface * by, RakNet::AddressOrGUID to) override;
 

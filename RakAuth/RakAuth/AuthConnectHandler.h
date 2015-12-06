@@ -5,7 +5,7 @@
 #include "AuthClient.h"
 #include "ClientsTracker.h"
 
-void handleAuthconn(RakNet::Packet *packet){
+void handleAuthConn(RakNet::Packet *packet){
 	LOG(INFO) << "Incoming connection for authenticator!";
 	LOG(INFO) << "GUID:";
 	LOG(INFO) << packet->guid.ToString();
@@ -13,7 +13,5 @@ void handleAuthconn(RakNet::Packet *packet){
 	{
 		authServer->addClient(packet->guid, *new ConnectedClient(packet->systemAddress));//holy fuck! I killed a whole day to make it D:
 		addAuthClient(authServer->getClient(packet->guid), *new AuthClient); // ClientsTracker.h
-
 	}
 };
-

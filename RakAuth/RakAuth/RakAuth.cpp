@@ -26,6 +26,7 @@
 #include "CreateCharacterHandler.h"
 #include "CharRequestHandler.h"
 #include "CharDeleteHandler.h"
+#include "ServInfoRequestHandler.h"
 
 using namespace FileManager;
 
@@ -35,8 +36,23 @@ using namespace FileManager;
 #define ELPP_LOG_UNORDERED_MAP
 #define ELPP_UNORDERED_SET
 #define ELPP_THREAD_SAFE
+#define ELPP_EXPERIMENTAL_ASYNC 
 
 INITIALIZE_EASYLOGGINGPP
+
+//extern vars
+
+static char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
+static char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
+
+static Server* authServer;
+static Server* poolerServer;
+
+std::auto_ptr<odb::database> dataBase(new odb::pgsql::database(
+	"postgres",
+	"root",
+	"data",
+	"localhost"));
 
 
 //My first function on C++, he-he...
@@ -175,14 +191,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//Auth server
 	NetworkListener listen;
-	listen.add((short)ID_NEW_INCOMING_CONNECTION, handleAuthconn);
-	listen.add((short)ID_CONNECTION_LOST, handleDisconnectFromAuth);
+	listen.add((short)ID_NEW_INCOMING_CONNECTION, handleAuthConn);
 	listen.add((short)ID_CONNECTION_LOST, handleDisconnectFromAuth);
 	listen.add((short)ACCOUNT_AUTH, handleAuth);
 	listen.add((short)CHECK_NICKNAME, handleNickCheck);
 	listen.add((short)CREATE_CHARACTER, handleCharacterCreation);
 	listen.add((short)REQUEST_CHARACTER_INFO, charReqHandler);
 	listen.add((short)DELETE_CHARACTER, charDelHandle);
+	listen.add((short)SERVER_INFO, serverInfoRequestHandle);
 
 	//Debug connection
 	listen.add((short)ID_CONNECTION_ATTEMPT_FAILED, handlefail);

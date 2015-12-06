@@ -633,6 +633,9 @@
     <ClInclude Include="CharDeleteHandler.h">
       <Filter>Заголовочные файлы\Server\Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="ServInfoRequestHandler.h">
+      <Filter>Заголовочные файлы\Server\Handlers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

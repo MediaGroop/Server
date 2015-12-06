@@ -60,20 +60,32 @@ bool checkForClient(RakNet::RakString login, unsigned char* hash)
 void handleVerifyRequest(RakNet::Packet *packet)
 {
 	ConnectedClient* cc = poolerServer->getClient(packet->guid);
+	LOG(DEBUG) << "Verifying account...";
+	RakNet::BitStream bsIn(packet->data, packet->length, false);
+	bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
+
+	RakNet::RakString login;
+	unsigned char hash[20];
+	//Should I use string compressor??
+	bsIn.Read(login);
+	AuthClient* ac = nullptr;
+	for (map<RakNet::RakNetGUID, ConnectedClient>::iterator ii = authServer->get_connections()->begin(); ii != authServer->get_connections()->end(); ++ii)
+	{
+		ac = getAuthClient(&(*ii).second);
+		if (ac != nullptr)
+		{
+			if (RakNet::RakString(ac->getAccount()->login().c_str()) == login){
+				LOG(DEBUG) << "We've found da account! Name: " << login.C_String();
+				break;
+			}
+		}
+	}
+
 	//What if we recieved corrupted packet?
 	if (cc != nullptr)
 	{
-		AuthClient* ac = getAuthClient(cc);
 		if (ac != nullptr){
 			if (ac->authorized()){
-				RakNet::BitStream bsIn(packet->data, packet->length, false);
-				bsIn.IgnoreBytes(sizeof(RakNet::MessageID));
-
-				RakNet::RakString login;
-				unsigned char hash[20];
-				//Should I use string compressor??
-				bsIn.Read(login);
-
 				for (int i = 0; i < 20; ++i){
 					bsIn.Read(hash[i]);
 					//	LOG(INFO) << hash[i];
@@ -82,20 +94,20 @@ void handleVerifyRequest(RakNet::Packet *packet)
 				if (ac->getAccount() != nullptr){
 					if (checkForClient(login, hash) && (ac->getAccount()->premium() || ac->getAccount()->beta()))
 					{
-						VerifyResponsePacket p(0, hash);
+						VerifyResponsePacket p(0, hash, *new RakNet::RakString(ac->getAccount()->login().c_str()));
 						p.send(poolerServer->getPeer(), packet->systemAddress);
-					//	LOG(INFO) << "Verified!";
+						LOG(INFO) << "Verified!";
 					}
 					else
 					{
-						VerifyResponsePacket p(1, hash);
+						VerifyResponsePacket p(1, hash, *new RakNet::RakString(ac->getAccount()->login().c_str()));
 						p.send(poolerServer->getPeer(), packet->systemAddress);
-					//	LOG(INFO) << "Invalid hash!(In case if there were message \"No such user\" - no user)";
+						LOG(INFO) << "Invalid hash!(In case if there were message \"No such user\" - no user)";
 					}
 				}
 				else
 				{
-					VerifyResponsePacket p(1, hash);
+					VerifyResponsePacket p(1, hash, *new RakNet::RakString(""));
 					p.send(poolerServer->getPeer(), packet->systemAddress);
 				}
 			}

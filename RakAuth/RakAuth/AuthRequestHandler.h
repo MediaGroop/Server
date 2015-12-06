@@ -28,12 +28,12 @@ void requestCharacters(ConnectedClient* to, RakNet::RakString login){
 	{
 		if (hasServer(i->server()))
 		{
-			AddCharacterPacket packet(RakNet::RakString(i->name().c_str()), RakNet::RakString(getServer(i->server())->getName().c_str()));
+			AddCharacterPacket packet(RakNet::RakString(i->name().c_str()), RakNet::RakString(getServer(i->server())->getName().c_str()), getServer(i->server())->getId());
 			packet.send(authServer->getPeer(), to->getAddr()->systemAddress);
 		}
 		else
 		{
-			AddCharacterPacket packet(RakNet::RakString(i->name().c_str()), unavail);
+			AddCharacterPacket packet(RakNet::RakString(i->name().c_str()), unavail, -1);
 			packet.send(authServer->getPeer(), to->getAddr()->systemAddress);
 		}
 	}
@@ -41,16 +41,6 @@ void requestCharacters(ConnectedClient* to, RakNet::RakString login){
 	t.commit();
 
 };
-
-
-void sendServers(ConnectedClient* to){
-	for (map<int, ServerInfo>::iterator ii = _servers.begin(); ii != _servers.end(); ++ii)
-	{
-		AddServerPacket packet(RakNet::RakString((*ii).second.getName().c_str()), (*ii).first);
-		packet.send(authServer->getPeer(), authServer->getPeer()->GetGuidFromSystemAddress(to->getAddr()->systemAddress));
-	}
-};
-
 
 bool logged(RakNet::RakString login)
 {
@@ -156,7 +146,7 @@ void handleAuth(RakNet::Packet *packet){
 						AuthResponsePacket pack(3, ac->getSession(), ac->getAccount()->premium(), ac->getAccount()->beta(), RakNet::RakString(ac->getAccount()->mail().c_str()));
 						pack.send(authServer->getPeer(), packet->systemAddress);
 						ac->setAuthorized(true);
-						sendServers(cl);
+						
 						requestCharacters(cl, acc);
 						/*	}
 							else

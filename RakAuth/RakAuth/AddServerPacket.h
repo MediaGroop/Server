@@ -1,12 +1,12 @@
 #pragma once
-#include "Packet.h"
 #include "stdafx.h"
+#include "Packet.h"
 
 class AddServerPacket :
 	public Packet
 {
 private:
-	RakNet::RakString name;
+	RakNet::RakString addr;
 	int id;
 public:
 	AddServerPacket(RakNet::RakString, int);
