@@ -48,11 +48,7 @@ static char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
 static Server* authServer;
 static Server* poolerServer;
 
-std::auto_ptr<odb::database> dataBase(new odb::pgsql::database(
-	"postgres",
-	"root",
-	"data",
-	"localhost"));
+std::auto_ptr<odb::database> dataBase;
 
 
 //My first function on C++, he-he...
@@ -171,7 +167,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	LOG(INFO) << "Log was initialized...";
 	ConfigLoader::init("config.ini");
 	LOG(INFO) << "Configuration loaded...";
-	
+	dataBase = *new std::auto_ptr<odb::database>(new odb::pgsql::database(
+		ConfigLoader::getVal("Database-User"),
+		ConfigLoader::getVal("Database-Pass"),
+		ConfigLoader::getVal("Database-DBName"),
+		ConfigLoader::getVal("Database-DBAddress")));
+
 	//Generating and saving public and private keys
 	if (!loadKeys())
 	{
