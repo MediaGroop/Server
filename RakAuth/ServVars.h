@@ -1,8 +1,8 @@
 #pragma once
 #include "stdafx.h"
 #include "Server.h"
-#include "odb\database.hxx"
-#include "odb\pgsql\database.hxx"
+#include "odb/database.hxx"
+#include "odb/pgsql/database.hxx"
 
 //#region vars
 //Security keys

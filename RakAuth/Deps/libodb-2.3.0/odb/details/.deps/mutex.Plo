@@ -1,0 +1,107 @@
+details/mutex.lo: details/mutex.cxx /usr/include/stdc-predef.h \
+ ../odb/details/mutex.hxx ../odb/pre.hxx ../odb/details/config.hxx \
+ ../odb/details/config.h ../odb/details/export.hxx ../odb/post.hxx \
+ ../odb/details/posix/mutex.hxx /usr/include/pthread.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/bits/byteswap-16.h /usr/include/sched.h \
+ /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h \
+ /usr/include/time.h /usr/include/bits/sched.h /usr/include/bits/time.h \
+ /usr/include/bits/timex.h /usr/include/xlocale.h \
+ /usr/include/bits/pthreadtypes.h /usr/include/bits/setjmp.h \
+ ../odb/details/posix/mutex.ixx ../odb/details/posix/exceptions.hxx \
+ ../odb/details/exception.hxx ../odb/exception.hxx \
+ /usr/include/c++/5.3.1/exception \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h \
+ /usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h ../odb/forward.hxx \
+ /usr/include/c++/5.3.1/cstddef ../odb/details/shared-ptr-fwd.hxx \
+ ../odb/details/shared-ptr/counter-type.hxx
+
+/usr/include/stdc-predef.h:
+
+../odb/details/mutex.hxx:
+
+../odb/pre.hxx:
+
+../odb/details/config.hxx:
+
+../odb/details/config.h:
+
+../odb/details/export.hxx:
+
+../odb/post.hxx:
+
+../odb/details/posix/mutex.hxx:
+
+/usr/include/pthread.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/sched.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h:
+
+/usr/include/time.h:
+
+/usr/include/bits/sched.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/bits/timex.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/bits/setjmp.h:
+
+../odb/details/posix/mutex.ixx:
+
+../odb/details/posix/exceptions.hxx:
+
+../odb/details/exception.hxx:
+
+../odb/exception.hxx:
+
+/usr/include/c++/5.3.1/exception:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h:
+
+/usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h:
+
+../odb/forward.hxx:
+
+/usr/include/c++/5.3.1/cstddef:
+
+../odb/details/shared-ptr-fwd.hxx:
+
+../odb/details/shared-ptr/counter-type.hxx:

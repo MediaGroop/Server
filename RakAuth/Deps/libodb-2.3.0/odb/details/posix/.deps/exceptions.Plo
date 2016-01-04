@@ -1,0 +1,64 @@
+details/posix/exceptions.lo: details/posix/exceptions.cxx \
+ /usr/include/stdc-predef.h ../odb/details/posix/exceptions.hxx \
+ ../odb/pre.hxx ../odb/details/export.hxx ../odb/details/config.hxx \
+ ../odb/details/config.h ../odb/post.hxx ../odb/details/exception.hxx \
+ ../odb/exception.hxx /usr/include/c++/5.3.1/exception \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h \
+ /usr/include/bits/wordsize.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h \
+ /usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h ../odb/forward.hxx \
+ /usr/include/c++/5.3.1/cstddef \
+ /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h \
+ ../odb/details/shared-ptr-fwd.hxx \
+ ../odb/details/shared-ptr/counter-type.hxx
+
+/usr/include/stdc-predef.h:
+
+../odb/details/posix/exceptions.hxx:
+
+../odb/pre.hxx:
+
+../odb/details/export.hxx:
+
+../odb/details/config.hxx:
+
+../odb/details/config.h:
+
+../odb/post.hxx:
+
+../odb/details/exception.hxx:
+
+../odb/exception.hxx:
+
+/usr/include/c++/5.3.1/exception:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h:
+
+/usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h:
+
+../odb/forward.hxx:
+
+/usr/include/c++/5.3.1/cstddef:
+
+/usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h:
+
+../odb/details/shared-ptr-fwd.hxx:
+
+../odb/details/shared-ptr/counter-type.hxx:

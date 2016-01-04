@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "odb\core.hxx"
+#include "odb/core.hxx"
 using namespace std;
 
 #pragma db object

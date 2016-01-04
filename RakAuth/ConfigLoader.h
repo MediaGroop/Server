@@ -2,10 +2,11 @@
 #include <string>
 #include "minIni.h"
 #include "FileManager.h"
+#include <map>
 
 class ConfigLoader{
 private:
-	map <std::string, std::string> _vals;
+	std::map <std::string, std::string> _vals;
 	ConfigLoader(){};
 	~ConfigLoader(){};
 public:

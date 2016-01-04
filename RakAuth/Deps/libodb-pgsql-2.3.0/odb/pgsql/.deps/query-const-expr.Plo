@@ -1,0 +1,412 @@
+query-const-expr.lo: query-const-expr.cxx /usr/include/stdc-predef.h \
+ ../../odb/pgsql/query.hxx /usr/local/include/odb/pre.hxx \
+ /usr/include/c++/5.3.1/string \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h \
+ /usr/include/bits/wordsize.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h \
+ /usr/include/c++/5.3.1/bits/stringfwd.h \
+ /usr/include/c++/5.3.1/bits/memoryfwd.h \
+ /usr/include/c++/5.3.1/bits/char_traits.h \
+ /usr/include/c++/5.3.1/bits/stl_algobase.h \
+ /usr/include/c++/5.3.1/bits/functexcept.h \
+ /usr/include/c++/5.3.1/bits/exception_defines.h \
+ /usr/include/c++/5.3.1/bits/cpp_type_traits.h \
+ /usr/include/c++/5.3.1/ext/type_traits.h \
+ /usr/include/c++/5.3.1/ext/numeric_traits.h \
+ /usr/include/c++/5.3.1/bits/stl_pair.h \
+ /usr/include/c++/5.3.1/bits/move.h \
+ /usr/include/c++/5.3.1/bits/concept_check.h \
+ /usr/include/c++/5.3.1/bits/stl_iterator_base_types.h \
+ /usr/include/c++/5.3.1/bits/stl_iterator_base_funcs.h \
+ /usr/include/c++/5.3.1/debug/debug.h \
+ /usr/include/c++/5.3.1/bits/stl_iterator.h \
+ /usr/include/c++/5.3.1/bits/ptr_traits.h \
+ /usr/include/c++/5.3.1/bits/predefined_ops.h \
+ /usr/include/c++/5.3.1/bits/postypes.h /usr/include/c++/5.3.1/cwchar \
+ /usr/include/wchar.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stdarg.h \
+ /usr/include/bits/wchar.h \
+ /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h \
+ /usr/include/xlocale.h /usr/include/c++/5.3.1/bits/allocator.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++allocator.h \
+ /usr/include/c++/5.3.1/ext/new_allocator.h /usr/include/c++/5.3.1/new \
+ /usr/include/c++/5.3.1/exception \
+ /usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/5.3.1/bits/localefwd.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++locale.h \
+ /usr/include/c++/5.3.1/clocale /usr/include/locale.h \
+ /usr/include/bits/locale.h /usr/include/c++/5.3.1/iosfwd \
+ /usr/include/c++/5.3.1/cctype /usr/include/ctype.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/byteswap-16.h \
+ /usr/include/c++/5.3.1/bits/ostream_insert.h \
+ /usr/include/c++/5.3.1/bits/cxxabi_forced.h \
+ /usr/include/c++/5.3.1/bits/stl_function.h \
+ /usr/include/c++/5.3.1/backward/binders.h \
+ /usr/include/c++/5.3.1/bits/range_access.h \
+ /usr/include/c++/5.3.1/bits/basic_string.h \
+ /usr/include/c++/5.3.1/ext/atomicity.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/gthr.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h /usr/include/time.h \
+ /usr/include/bits/sched.h /usr/include/bits/time.h \
+ /usr/include/bits/timex.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/bits/setjmp.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/atomic_word.h \
+ /usr/include/c++/5.3.1/ext/alloc_traits.h \
+ /usr/include/c++/5.3.1/bits/basic_string.tcc \
+ /usr/include/c++/5.3.1/vector \
+ /usr/include/c++/5.3.1/bits/stl_construct.h \
+ /usr/include/c++/5.3.1/bits/stl_uninitialized.h \
+ /usr/include/c++/5.3.1/bits/stl_vector.h \
+ /usr/include/c++/5.3.1/bits/stl_bvector.h \
+ /usr/include/c++/5.3.1/bits/vector.tcc /usr/include/c++/5.3.1/cstddef \
+ /usr/local/include/odb/forward.hxx \
+ /usr/local/include/odb/details/export.hxx \
+ /usr/local/include/odb/details/config.hxx \
+ /usr/local/include/odb/details/config.h /usr/local/include/odb/post.hxx \
+ /usr/local/include/odb/details/shared-ptr-fwd.hxx \
+ /usr/local/include/odb/details/shared-ptr/counter-type.hxx \
+ /usr/local/include/odb/query.hxx /usr/local/include/odb/traits.hxx \
+ /usr/local/include/odb/pointer-traits.hxx /usr/include/c++/5.3.1/memory \
+ /usr/include/c++/5.3.1/bits/stl_tempbuf.h \
+ /usr/include/c++/5.3.1/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/5.3.1/backward/auto_ptr.h \
+ /usr/local/include/odb/details/meta/remove-const.hxx \
+ ../../odb/pgsql/version.hxx ../../odb/pgsql/details/config.hxx \
+ ../../odb/pgsql/details/config.h /usr/local/include/odb/version.hxx \
+ ../../odb/pgsql/forward.hxx ../../odb/pgsql/traits.hxx \
+ /usr/include/c++/5.3.1/cstring /usr/include/string.h \
+ /usr/local/include/odb/wrapper-traits.hxx \
+ /usr/local/include/odb/nullable.hxx \
+ /usr/local/include/odb/details/buffer.hxx \
+ /usr/local/include/odb/details/wrapper-p.hxx \
+ /usr/local/include/odb/details/meta/answer.hxx \
+ ../../odb/pgsql/pgsql-types.hxx ../../odb/pgsql/pgsql-fwd.hxx \
+ ../../odb/pgsql/details/export.hxx \
+ ../../odb/pgsql/details/endian-traits.hxx \
+ /usr/include/c++/5.3.1/algorithm /usr/include/c++/5.3.1/utility \
+ /usr/include/c++/5.3.1/bits/stl_relops.h \
+ /usr/include/c++/5.3.1/bits/stl_algo.h /usr/include/c++/5.3.1/cstdlib \
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/sys/types.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h \
+ /usr/include/alloca.h /usr/include/bits/stdlib-bsearch.h \
+ /usr/include/bits/stdlib-float.h \
+ /usr/include/c++/5.3.1/bits/algorithmfwd.h \
+ /usr/include/c++/5.3.1/bits/stl_heap.h ../../odb/pgsql/binding.hxx \
+ ../../odb/pgsql/pgsql-oid.hxx \
+ /usr/local/include/odb/details/shared-ptr.hxx \
+ /usr/local/include/odb/details/shared-ptr/base.hxx \
+ /usr/local/include/odb/exception.hxx \
+ /usr/local/include/odb/details/shared-ptr/base.ixx \
+ /usr/local/include/odb/details/shared-ptr/base.txx \
+ /usr/local/include/odb/details/meta/polymorphic-p.hxx \
+ /usr/local/include/odb/details/meta/class-p.hxx \
+ /usr/local/include/odb/details/meta/remove-const-volatile.hxx \
+ /usr/local/include/odb/details/meta/remove-volatile.hxx \
+ ../../odb/pgsql/details/conversion.hxx ../../odb/pgsql/query.ixx \
+ ../../odb/pgsql/query.txx
+
+/usr/include/stdc-predef.h:
+
+../../odb/pgsql/query.hxx:
+
+/usr/local/include/odb/pre.hxx:
+
+/usr/include/c++/5.3.1/string:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h:
+
+/usr/include/c++/5.3.1/bits/stringfwd.h:
+
+/usr/include/c++/5.3.1/bits/memoryfwd.h:
+
+/usr/include/c++/5.3.1/bits/char_traits.h:
+
+/usr/include/c++/5.3.1/bits/stl_algobase.h:
+
+/usr/include/c++/5.3.1/bits/functexcept.h:
+
+/usr/include/c++/5.3.1/bits/exception_defines.h:
+
+/usr/include/c++/5.3.1/bits/cpp_type_traits.h:
+
+/usr/include/c++/5.3.1/ext/type_traits.h:
+
+/usr/include/c++/5.3.1/ext/numeric_traits.h:
+
+/usr/include/c++/5.3.1/bits/stl_pair.h:
+
+/usr/include/c++/5.3.1/bits/move.h:
+
+/usr/include/c++/5.3.1/bits/concept_check.h:
+
+/usr/include/c++/5.3.1/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/5.3.1/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/5.3.1/debug/debug.h:
+
+/usr/include/c++/5.3.1/bits/stl_iterator.h:
+
+/usr/include/c++/5.3.1/bits/ptr_traits.h:
+
+/usr/include/c++/5.3.1/bits/predefined_ops.h:
+
+/usr/include/c++/5.3.1/bits/postypes.h:
+
+/usr/include/c++/5.3.1/cwchar:
+
+/usr/include/wchar.h:
+
+/usr/include/stdio.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stdarg.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/c++/5.3.1/bits/allocator.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++allocator.h:
+
+/usr/include/c++/5.3.1/ext/new_allocator.h:
+
+/usr/include/c++/5.3.1/new:
+
+/usr/include/c++/5.3.1/exception:
+
+/usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/5.3.1/bits/localefwd.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++locale.h:
+
+/usr/include/c++/5.3.1/clocale:
+
+/usr/include/locale.h:
+
+/usr/include/bits/locale.h:
+
+/usr/include/c++/5.3.1/iosfwd:
+
+/usr/include/c++/5.3.1/cctype:
+
+/usr/include/ctype.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/c++/5.3.1/bits/ostream_insert.h:
+
+/usr/include/c++/5.3.1/bits/cxxabi_forced.h:
+
+/usr/include/c++/5.3.1/bits/stl_function.h:
+
+/usr/include/c++/5.3.1/backward/binders.h:
+
+/usr/include/c++/5.3.1/bits/range_access.h:
+
+/usr/include/c++/5.3.1/bits/basic_string.h:
+
+/usr/include/c++/5.3.1/ext/atomicity.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/gthr.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/gthr-default.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/time.h:
+
+/usr/include/bits/sched.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/bits/timex.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/bits/setjmp.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/atomic_word.h:
+
+/usr/include/c++/5.3.1/ext/alloc_traits.h:
+
+/usr/include/c++/5.3.1/bits/basic_string.tcc:
+
+/usr/include/c++/5.3.1/vector:
+
+/usr/include/c++/5.3.1/bits/stl_construct.h:
+
+/usr/include/c++/5.3.1/bits/stl_uninitialized.h:
+
+/usr/include/c++/5.3.1/bits/stl_vector.h:
+
+/usr/include/c++/5.3.1/bits/stl_bvector.h:
+
+/usr/include/c++/5.3.1/bits/vector.tcc:
+
+/usr/include/c++/5.3.1/cstddef:
+
+/usr/local/include/odb/forward.hxx:
+
+/usr/local/include/odb/details/export.hxx:
+
+/usr/local/include/odb/details/config.hxx:
+
+/usr/local/include/odb/details/config.h:
+
+/usr/local/include/odb/post.hxx:
+
+/usr/local/include/odb/details/shared-ptr-fwd.hxx:
+
+/usr/local/include/odb/details/shared-ptr/counter-type.hxx:
+
+/usr/local/include/odb/query.hxx:
+
+/usr/local/include/odb/traits.hxx:
+
+/usr/local/include/odb/pointer-traits.hxx:
+
+/usr/include/c++/5.3.1/memory:
+
+/usr/include/c++/5.3.1/bits/stl_tempbuf.h:
+
+/usr/include/c++/5.3.1/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/5.3.1/backward/auto_ptr.h:
+
+/usr/local/include/odb/details/meta/remove-const.hxx:
+
+../../odb/pgsql/version.hxx:
+
+../../odb/pgsql/details/config.hxx:
+
+../../odb/pgsql/details/config.h:
+
+/usr/local/include/odb/version.hxx:
+
+../../odb/pgsql/forward.hxx:
+
+../../odb/pgsql/traits.hxx:
+
+/usr/include/c++/5.3.1/cstring:
+
+/usr/include/string.h:
+
+/usr/local/include/odb/wrapper-traits.hxx:
+
+/usr/local/include/odb/nullable.hxx:
+
+/usr/local/include/odb/details/buffer.hxx:
+
+/usr/local/include/odb/details/wrapper-p.hxx:
+
+/usr/local/include/odb/details/meta/answer.hxx:
+
+../../odb/pgsql/pgsql-types.hxx:
+
+../../odb/pgsql/pgsql-fwd.hxx:
+
+../../odb/pgsql/details/export.hxx:
+
+../../odb/pgsql/details/endian-traits.hxx:
+
+/usr/include/c++/5.3.1/algorithm:
+
+/usr/include/c++/5.3.1/utility:
+
+/usr/include/c++/5.3.1/bits/stl_relops.h:
+
+/usr/include/c++/5.3.1/bits/stl_algo.h:
+
+/usr/include/c++/5.3.1/cstdlib:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/alloca.h:
+
+/usr/include/bits/stdlib-bsearch.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/include/c++/5.3.1/bits/algorithmfwd.h:
+
+/usr/include/c++/5.3.1/bits/stl_heap.h:
+
+../../odb/pgsql/binding.hxx:
+
+../../odb/pgsql/pgsql-oid.hxx:
+
+/usr/local/include/odb/details/shared-ptr.hxx:
+
+/usr/local/include/odb/details/shared-ptr/base.hxx:
+
+/usr/local/include/odb/exception.hxx:
+
+/usr/local/include/odb/details/shared-ptr/base.ixx:
+
+/usr/local/include/odb/details/shared-ptr/base.txx:
+
+/usr/local/include/odb/details/meta/polymorphic-p.hxx:
+
+/usr/local/include/odb/details/meta/class-p.hxx:
+
+/usr/local/include/odb/details/meta/remove-const-volatile.hxx:
+
+/usr/local/include/odb/details/meta/remove-volatile.hxx:
+
+../../odb/pgsql/details/conversion.hxx:
+
+../../odb/pgsql/query.ixx:
+
+../../odb/pgsql/query.txx:

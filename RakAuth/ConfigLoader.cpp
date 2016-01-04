@@ -1,4 +1,5 @@
 #include "ConfigLoader.h"
+#include "easylogging++.h"
 
 ConfigLoader& ConfigLoader::getInstance()
 {

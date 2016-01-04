@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "ServVars.h"
 #include "VerifyResponsePacket.h"
-#include "openssl\sha.h"
+#include "openssl/sha.h"
 #include "Utils.h"
 #include "ClientsTracker.h"
 

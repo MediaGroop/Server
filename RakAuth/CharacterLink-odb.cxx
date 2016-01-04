@@ -27,22 +27,22 @@ namespace odb
   //
 
   const char access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  persist_statement_name[] = "persist_CharacterLink";
+  persist_statement_name[] = "CharacterLink_persist";
 
   const char access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  find_statement_name[] = "find_CharacterLink";
+  find_statement_name[] = "CharacterLink_find";
 
   const char access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  update_statement_name[] = "update_CharacterLink";
+  update_statement_name[] = "CharacterLink_update";
 
   const char access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  erase_statement_name[] = "erase_CharacterLink";
+  erase_statement_name[] = "CharacterLink_erase";
 
   const char access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  query_statement_name[] = "query_CharacterLink";
+  query_statement_name[] = "CharacterLink_query";
 
   const char access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  erase_query_statement_name[] = "erase_query_CharacterLink";
+  erase_query_statement_name[] = "CharacterLink_erase_query";
 
   const unsigned int access::object_traits_impl< ::CharacterLink, id_pgsql >::
   persist_statement_types[] =
@@ -72,7 +72,6 @@ namespace odb
     extra_statement_cache_type (
       pgsql::connection&,
       image_type&,
-      id_image_type&,
       pgsql::binding&,
       pgsql::binding&,
       pgsql::native_binding&,
@@ -80,26 +79,6 @@ namespace odb
     {
     }
   };
-
-  access::object_traits_impl< ::CharacterLink, id_pgsql >::id_type
-  access::object_traits_impl< ::CharacterLink, id_pgsql >::
-  id (const id_image_type& i)
-  {
-    pgsql::database* db (0);
-    ODB_POTENTIALLY_UNUSED (db);
-
-    id_type id;
-    {
-      pgsql::value_traits<
-          long unsigned int,
-          pgsql::id_bigint >::set_value (
-        id,
-        i.id_value,
-        i.id_null);
-    }
-
-    return id;
-  }
 
   access::object_traits_impl< ::CharacterLink, id_pgsql >::id_type
   access::object_traits_impl< ::CharacterLink, id_pgsql >::
@@ -441,22 +420,11 @@ namespace odb
       imb.version++;
     }
 
-    {
-      id_image_type& i (sts.id_image ());
-      binding& b (sts.id_image_binding ());
-      if (i.version != sts.id_image_version () || b.version == 0)
-      {
-        bind (b.bind, i);
-        sts.id_image_version (i.version);
-        b.version++;
-      }
-    }
-
     insert_statement& st (sts.persist_statement ());
     if (!st.execute ())
       throw object_already_persistent ();
 
-    obj.id_ = id (sts.id_image ());
+    obj.id_ = static_cast< id_type > (st.id ());
 
     callback (db,
               static_cast<const object_type&> (obj),

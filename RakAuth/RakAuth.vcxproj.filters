@@ -40,57 +40,30 @@
     <Filter Include="Заголовочные файлы\Server\odb">
       <UniqueIdentifier>{1ad6b00a-9c3a-48ca-86ed-71b62f79e65d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\Server\Net">
+      <UniqueIdentifier>{e5fade94-f34b-4c01-9f99-b1840bfd23f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Server\Utils">
+      <UniqueIdentifier>{e8d90fe5-5758-4d14-b22e-c19d0a285535}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Server\Objects">
+      <UniqueIdentifier>{63bf438e-ff11-4558-a82a-8f5189736be0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Server\Enums">
+      <UniqueIdentifier>{cb79f06f-ba05-4bcf-8f23-aa4dc9adedc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Server\Net">
+      <UniqueIdentifier>{3ca8f88e-d312-45a1-ab66-ebf07b8524a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Server\Objects">
+      <UniqueIdentifier>{d7eda427-96ff-4ddc-a9e8-72d5c23f06fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Server\Utils">
+      <UniqueIdentifier>{b8a42f60-6f9e-4718-a74b-675c4df95c5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccountInfo.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="AuthClient.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ConfigLoader.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ConnectedClient.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="easylogging++.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="FileManager.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="minGlue.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="minIni.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkListener.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="PacketTypes.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerInfo.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerState.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ServersTracker.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ServVars.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\RakNet-master\Source\StringCompressor.h">
       <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
@@ -558,9 +531,6 @@
     <ClInclude Include="..\Deps\Rak-Net-libcat\Source\Base64Encoder.h">
       <Filter>Заголовочные файлы\RakNet</Filter>
     </ClInclude>
-    <ClInclude Include="CommandListener.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
     <ClInclude Include="AuthConnectHandler.h">
       <Filter>Заголовочные файлы\Server\Handlers</Filter>
     </ClInclude>
@@ -591,17 +561,8 @@
     <ClInclude Include="Packet.h">
       <Filter>Заголовочные файлы\Server\Packets</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
     <ClInclude Include="AccountInfo-odb.hxx">
       <Filter>Заголовочные файлы\Server\odb</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientsTracker.h">
-      <Filter>Заголовочные файлы\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterLink.h">
-      <Filter>Заголовочные файлы\Server</Filter>
     </ClInclude>
     <ClInclude Include="AddServerPacket.h">
       <Filter>Заголовочные файлы\Server\Packets</Filter>
@@ -636,6 +597,66 @@
     <ClInclude Include="ServInfoRequestHandler.h">
       <Filter>Заголовочные файлы\Server\Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="AccountInfo.h">
+      <Filter>Заголовочные файлы\Server\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthClient.h">
+      <Filter>Заголовочные файлы\Server\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterLink.h">
+      <Filter>Заголовочные файлы\Server\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientsTracker.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandListener.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigLoader.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="easylogging++.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="minGlue.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="minIni.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ServersTracker.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\RakNet-master\Source\StringCompressor.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ServVars.h">
+      <Filter>Заголовочные файлы\Server\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Заголовочные файлы\Server\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerInfo.h">
+      <Filter>Заголовочные файлы\Server\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerState.h">
+      <Filter>Заголовочные файлы\Server\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkListener.h">
+      <Filter>Заголовочные файлы\Server\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectedClient.h">
+      <Filter>Заголовочные файлы\Server\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Заголовочные файлы\Server\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketTypes.h">
+      <Filter>Заголовочные файлы\Server\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -643,21 +664,6 @@
     </ClCompile>
     <ClCompile Include="RakAuth.cpp">
       <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="AuthClient.cpp">
-      <Filter>Файлы исходного кода\Server</Filter>
-    </ClCompile>
-    <ClCompile Include="ConfigLoader.cpp">
-      <Filter>Файлы исходного кода\Server</Filter>
-    </ClCompile>
-    <ClCompile Include="minIni.c">
-      <Filter>Файлы исходного кода\Server</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkListener.cpp">
-      <Filter>Файлы исходного кода\Server</Filter>
-    </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Файлы исходного кода\Server</Filter>
     </ClCompile>
     <ClCompile Include="..\Deps\Rak-Net-libcat\Source\VariableDeltaSerializer.cpp">
       <Filter>Файлы исходного кода\RakNet</Filter>
@@ -1015,6 +1021,21 @@
     </ClCompile>
     <ClCompile Include="ServerInfoPacket.cpp">
       <Filter>Файлы исходного кода\Server\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Файлы исходного кода\Server\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkListener.cpp">
+      <Filter>Файлы исходного кода\Server\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="AuthClient.cpp">
+      <Filter>Файлы исходного кода\Server\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigLoader.cpp">
+      <Filter>Файлы исходного кода\Server\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="minIni.c">
+      <Filter>Файлы исходного кода\Server\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -27,22 +27,22 @@ namespace odb
   //
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::
-  persist_statement_name[] = "persist_AccountInfo";
+  persist_statement_name[] = "AccountInfo_persist";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::
-  find_statement_name[] = "find_AccountInfo";
+  find_statement_name[] = "AccountInfo_find";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::
-  update_statement_name[] = "update_AccountInfo";
+  update_statement_name[] = "AccountInfo_update";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::
-  erase_statement_name[] = "erase_AccountInfo";
+  erase_statement_name[] = "AccountInfo_erase";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::
-  query_statement_name[] = "query_AccountInfo";
+  query_statement_name[] = "AccountInfo_query";
 
   const char access::object_traits_impl< ::AccountInfo, id_pgsql >::
-  erase_query_statement_name[] = "erase_query_AccountInfo";
+  erase_query_statement_name[] = "AccountInfo_erase_query";
 
   const unsigned int access::object_traits_impl< ::AccountInfo, id_pgsql >::
   persist_statement_types[] =
@@ -75,7 +75,6 @@ namespace odb
     extra_statement_cache_type (
       pgsql::connection&,
       image_type&,
-      id_image_type&,
       pgsql::binding&,
       pgsql::binding&,
       pgsql::native_binding&,

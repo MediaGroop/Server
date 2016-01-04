@@ -3,9 +3,9 @@
 #include "AuthClient.h"
 #include "easylogging++.h"
 #include "ServVars.h"
-#include "odb\database.hxx";
+#include "odb/database.hxx"
 #include "AccountInfo-odb.hxx"
-#include "openssl\sha.h"
+#include "openssl/sha.h"
 #include "AuthResponsePacket.h"
 #include "Utils.h"
 #include "ServersTracker.h"

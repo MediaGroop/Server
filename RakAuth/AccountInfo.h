@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
-#include "odb\core.hxx"
-#include "easylogging++.h"
+#include <odb/core.hxx>
 using namespace std;
 
 #pragma db object

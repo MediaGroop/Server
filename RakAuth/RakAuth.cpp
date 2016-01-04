@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "easylogging++.h"
 #include <ctime>
-#include <tchar.h>
 #include "PacketTypes.h"
 #include "FileManager.h"
 #include "ConnectedClient.h"
@@ -28,8 +27,6 @@
 #include "CharDeleteHandler.h"
 #include "ServInfoRequestHandler.h"
 
-using namespace FileManager;
-
 #define ELPP_STL_LOGGING
 #define ELPP_PERFORMANCE_MICROSECONDS
 #define ELPP_LOG_STD_ARRAY
@@ -42,28 +39,28 @@ INITIALIZE_EASYLOGGINGPP
 
 //extern vars
 
-static char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
-static char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
+char public_key[cat::EasyHandshake::PUBLIC_KEY_BYTES];
+char private_key[cat::EasyHandshake::PRIVATE_KEY_BYTES];
 
-static Server* authServer;
-static Server* poolerServer;
+Server* authServer;
+Server* poolerServer;
 
 std::auto_ptr<odb::database> dataBase;
 
 
 //My first function on C++, he-he...
-//Configures easyLogging
+//Configuring easyLogging
 void setupLog(){
 	time_t t;
 	t = time(0);
-	char str[64];
+	char str[FILENAME_MAX];
 
-	getcwd(str, 64);
-	if (!FileManager::DirExists(strcat(str, "\\logs\\"))){
-		mkdir(str);
+	getcwd(str, sizeof(str));
+	if (!FileManager::DirExists(strcat(str, "//logs//"))){
+		mkdir(str, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	}
 
-	std::string log_name = "logs\\";
+	std::string log_name = "//logs//";
 	log_name.append(asctime(localtime(&t)));
 	log_name[log_name.length() - 1] = ' ';
 	log_name.append(".txt");
@@ -79,8 +76,9 @@ void setupLog(){
 	el::Loggers::reconfigureAllLoggers(el::ConfigurationType::Filename, log_name);
 }
 
+
 //Reading keys from files located in same directory as server
-boolean loadKeys()
+bool loadKeys()
 {
 	FILE *fp;	
 
@@ -160,7 +158,7 @@ void handleInitSec(RakNet::Packet* p)
 //Load security keys
 //Init auth server(for players)
 //Init pooler server(for registering servers)
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, const char** argv)
 {
 	char str[23];
 	setupLog();
@@ -213,8 +211,18 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	authServer = &authSrv;
 	authServer->initSecurity(public_key, private_key);//Must be called before starting network thread! (See RakPeerInterface.h for info)
-	std::thread trd1(authServer->startNetworkTrd, authServer, ConfigLoader::getIntVal("Auth-Port"), ConfigLoader::getIntVal("Auth-MaxCons"));
-	authServer->setThread(&trd1);
+	
+#if defined(_WIN64) || defined(_WIN32)
+	authServer->setThread(new std::thread(authServer->startNetworkTrd, authServer, ConfigLoader::getIntVal("Auth-Port"), ConfigLoader::getIntVal("Auth-MaxCons")));
+#else
+	pthread_t* trd = new pthread_t();
+	server_data data2;
+	data2.instance = authServer;
+	data2.max_players = ConfigLoader::getIntVal("Auth-MaxCons");
+	data2.port = ConfigLoader::getIntVal("Auth-Port");
+	pthread_create(trd, NULL, &authServer->startMainNetworkThread, (void *)&data2);
+	authServer->setThread(trd);
+#endif
 	//Auth server end
 	
 	LOG(INFO) << "Auth server was started!";
@@ -234,8 +242,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	Server poolSrv(&plisten);
 
 	poolerServer = &poolSrv;
-	std::thread trd2(poolerServer->startNetworkTrd, poolerServer, ConfigLoader::getIntVal("Pooler-Port"), ConfigLoader::getIntVal("Pooler-MaxCons"));
-	poolerServer->setThread(&trd2);
+#if defined(_WIN64) || defined(_WIN32)
+	poolerServer->setThread(new std::thread(poolerServer->startNetworkTrd, poolerServer, ConfigLoader::getIntVal("Pooler-Port"), ConfigLoader::getIntVal("Pooler-MaxCons")));
+#else
+	pthread_t* trd2 = new pthread_t();
+	server_data data;
+	data.instance = poolerServer;
+	data.max_players = ConfigLoader::getIntVal("Pooler-MaxCons");
+	data.port = ConfigLoader::getIntVal("Pooler-Port");
+	pthread_create(trd2, NULL, &poolerServer->startMainNetworkThread, (void *)&data);
+	poolerServer->setThread(trd2);
+#endif
 	//Pooler server end
 	
 	LOG(INFO) << "Pooler server was started!";
@@ -245,11 +262,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	LOG(INFO) << "Stopping auth server...";
 	authServer->setRunning(false);
+#if defined(_WIN64) || defined(_WIN32)
 	authServer->getThread()->join();
+#endif
 
 	LOG(INFO) << "Stopping pooler server...";
 	poolerServer->setRunning(false);
+#if defined(_WIN64) || defined(_WIN32)
 	poolerServer->getThread()->join();
-	
+#endif
 	return 0;
 }

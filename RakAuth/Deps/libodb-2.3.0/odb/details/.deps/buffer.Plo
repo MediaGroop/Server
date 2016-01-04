@@ -1,0 +1,61 @@
+details/buffer.lo: details/buffer.cxx /usr/include/stdc-predef.h \
+ /usr/include/c++/5.3.1/cstring \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h \
+ /usr/include/bits/wordsize.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h \
+ /usr/include/string.h \
+ /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h \
+ /usr/include/xlocale.h ../odb/details/buffer.hxx ../odb/pre.hxx \
+ /usr/include/c++/5.3.1/new /usr/include/c++/5.3.1/exception \
+ /usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/5.3.1/cstddef ../odb/details/export.hxx \
+ ../odb/details/config.hxx ../odb/details/config.h ../odb/post.hxx
+
+/usr/include/stdc-predef.h:
+
+/usr/include/c++/5.3.1/cstring:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/c++config.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/os_defines.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/c++/5.3.1/x86_64-redhat-linux/bits/cpu_defines.h:
+
+/usr/include/string.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stddef.h:
+
+/usr/include/xlocale.h:
+
+../odb/details/buffer.hxx:
+
+../odb/pre.hxx:
+
+/usr/include/c++/5.3.1/new:
+
+/usr/include/c++/5.3.1/exception:
+
+/usr/include/c++/5.3.1/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/5.3.1/cstddef:
+
+../odb/details/export.hxx:
+
+../odb/details/config.hxx:
+
+../odb/details/config.h:
+
+../odb/post.hxx:

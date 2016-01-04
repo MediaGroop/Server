@@ -24,6 +24,7 @@ void AuthResponsePacket::send(RakNet::RakPeerInterface * by, RakNet::AddressOrGU
 	{
 		for (int i = 0; i < 20; ++i)
 			bsOut.Write(session[i]);
+
 		bsOut.Write(mail);
 		bsOut.Write(premium);
 		bsOut.Write(beta);
